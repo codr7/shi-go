@@ -81,10 +81,6 @@ func (self Term) Out() *bufio.Writer {
 	return self.out
 }
 
-func (self Term) OutFile() *os.File {
-	return self.outFile
-}
-
 func (self *Term) Printf(spec string, values...any) *Term {
 	fmt.Fprintf(self.out, spec, values...)
 	return self

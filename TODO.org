@@ -1,13 +1,5 @@
-* refactor repl
-
-* activate shell mode
-** switch on/off using ESC
-** find id in PATH if not in lib
-*** exec process
-*** bind stdin/out
-
-ls
-ls ../
+* drop shell mode
+* drop term.outFile()
 
 * add vm.WithLib(func())
 ** use in scope emit
@@ -15,14 +7,7 @@ ls ../
 * add method type
 ** add +/- methods
 
-cd /
-
 * add macro type
-
-* add history
-
-* add ansi functionality to term
-** sharpl
 
 * add define macro
 * add let macro
@@ -33,6 +18,16 @@ cd /
 * add quoting
 ** add quote reader
 
+* add ansi functionality to term
+** sharpl
+
 scrl
 
 if T (let foo + 35 7 foo) else 0
+
+			if wd, err := os.Getwd(); err != nil {
+				log.Fatal(err)
+				break
+			} else {
+				t.Printf("%v$ ", wd).Flush()
+			}
