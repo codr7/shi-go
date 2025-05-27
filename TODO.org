@@ -1,5 +1,11 @@
+* convert repl to use term
+
 * find id in PATH if not in lib
 ** exec process
+** bind stdin/out
+
+ls
+ls ../
 
 * add vm.WithLib(func())
 ** use in scope emit
@@ -7,13 +13,14 @@
 * add method type
 ** add +/- methods
 
+cd /
+
 * add macro type
 
 * add history
 
-* add term
-** move stack dump
-** switch to reading unbuffered keys
+* add ansi functionality to term
+** sharpl
 
 * add define macro
 * add let macro
