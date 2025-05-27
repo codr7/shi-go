@@ -1,5 +1,8 @@
 * convert repl to use term
 
+* switch shell mode on/off using ESC
+** restore code reader in repl
+
 * find id in PATH if not in lib
 ** exec process
 ** bind stdin/out
