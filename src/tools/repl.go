@@ -34,7 +34,7 @@ func Repl(vm *shi.VM) {
 						code.WriteString(line.String())
 						code.WriteRune('\n')
 						line.Reset()
-						t.Printf("\r\n%2v ", sloc.Line()+i).Flush()
+						t.Br().Printf("%2v ", sloc.Line()+i).Flush()
 						i++
 					}
 				} else if c == 4 {

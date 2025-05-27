@@ -7,8 +7,11 @@ import (
 	"log"
 	"os"
 	"unicode/utf8"
+
 	t "golang.org/x/crypto/ssh/terminal"
 )
+
+const LineBreak = "\r\n"
 
 type Term struct {
 	fd int
@@ -42,7 +45,7 @@ func (self *Term) Init(in *os.File, out *os.File) *Term {
 }
 
 func (self *Term) Br() *Term {
-	self.out.WriteString("\r\n")
+	self.out.WriteString(LineBreak)
 	return self
 }
 
