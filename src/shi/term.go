@@ -1,6 +1,9 @@
 package shi
 
 import (
+	"bufio"
+	"bytes"
+	"fmt"
 	"log"
 	"os"
 	"unicode/utf8"
@@ -10,11 +13,17 @@ import (
 type Term struct {
 	fd int
 	height int
+	inFile *os.File
+	out *bufio.Writer
+	outFile *os.File
 	state *t.State
 	width int
+	Buffer bytes.Buffer
 }
 
-func (self *Term) Init(in *os.File) *Term {
+func (self *Term) Init(in *os.File, out *os.File) *Term {
+	self.inFile = in
+	self.outFile = out
 	self.fd = int(in.Fd())
 	var err error
 	
@@ -27,7 +36,20 @@ func (self *Term) Init(in *os.File) *Term {
 	if self.width, self.height, err = t.GetSize(self.fd); err != nil {
 		log.Fatal(err)
 	}
-	
+
+	self.out = bufio.NewWriter(&self.Buffer)
+	return self
+}
+
+func (self *Term) Br() *Term {
+	self.out.WriteString("\r\n")
+	return self
+}
+
+func (self *Term) Flush() *Term {
+	self.out.Flush()
+	self.outFile.WriteString(self.Buffer.String())
+	self.Buffer.Reset()
 	return self
 }
 
@@ -53,6 +75,24 @@ func (self Term) GetChar() ([]rune, error) {
 
 func (self Term) Height() int {
 	return self.height
+}
+
+func (self Term) Out() *bufio.Writer {
+	return self.out
+}
+
+func (self Term) OutFile() *os.File {
+	return self.outFile
+}
+
+func (self *Term) Printf(spec string, values...any) *Term {
+	fmt.Fprintf(self.out, spec, values...)
+	return self
+}
+
+func (self *Term) Println(values...any) *Term {
+	fmt.Fprintln(self.out, values...)
+	return self
 }
 
 func (self *Term) Restore() {	

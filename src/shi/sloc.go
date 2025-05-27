@@ -20,6 +20,10 @@ func (self *Sloc) Init(source string, line, column int) *Sloc {
 	return self
 }
 
+func (self Sloc) Line() int {
+	return self.line
+}
+
 func (self *Sloc) Step(c rune) {
 	if c == '\n' {
 		self.line++;

@@ -1,11 +1,10 @@
-* convert repl to use term
+* refactor repl
 
-* switch shell mode on/off using ESC
-** restore code reader in repl
-
-* find id in PATH if not in lib
-** exec process
-** bind stdin/out
+* activate shell mode
+** switch on/off using ESC
+** find id in PATH if not in lib
+*** exec process
+*** bind stdin/out
 
 ls
 ls ../
