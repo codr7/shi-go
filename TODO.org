@@ -1,0 +1,26 @@
+* improve repl
+** read/emit one line at a time
+** eval when fs is empty
+
+* find id in PATH if not in lib
+** exec process
+
+* add vm.WithLib(func())
+** use in scope emit
+
+* add method type
+** add +/- methods
+
+* add macro type
+* add define macro
+* add let macro
+
+* add if macro
+** optional else
+
+* add quoting
+** add quote reader
+
+scrl
+
+if T (let foo + 35 7 foo) else 0
