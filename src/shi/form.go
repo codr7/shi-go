@@ -4,9 +4,11 @@ import (
 	"bufio"
 )
 
+type Forms = Deque[Form]
+
 type Form interface {
 	Sloc() Sloc
-	Emit(in *Deque[Form], vm *VM) error
+	Emit(in *Forms, vm *VM) error
 	Quote(vm *VM) Value
 	Dump(out *bufio.Writer) error
 }

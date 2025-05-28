@@ -8,6 +8,7 @@ import (
 type Type interface {
 	Dump(Value, *bufio.Writer, *VM) error
 	Dup(Value, *VM) Value
+	Emit(Value, Sloc, *Forms, *VM) error
 	Name() Sym
 	Write(Value, *bufio.Writer, *VM) error
 }

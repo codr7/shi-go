@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"shi/src/shi"
 	"shi/src/libs/core"
-	"shi/src/ops"
 )
 
 type Id struct {
@@ -22,7 +21,7 @@ func (self *Id) Init(sloc shi.Sloc, name shi.Sym) *Id {
 	return self
 }
 
-func (self *Id) Emit(in *shi.Deque[shi.Form], vm *shi.VM) error {
+func (self *Id) Emit(in *shi.Forms, vm *shi.VM) error {
 	v := vm.CurrentLib().Find(self.name)
 
 	if v == nil {
@@ -31,38 +30,7 @@ func (self *Id) Emit(in *shi.Deque[shi.Form], vm *shi.VM) error {
 			self.name.Value())
 	}
 
-	if v.Type == &core.Method {
-		m := shi.Cast(*v, &core.Method)
-
-		switch m.Notation() {
-		case shi.Prefix:
-			var args shi.Deque[shi.Form]
-			
-			for range m.Args() {
-				if err := in.PopFront().Emit(&args, vm);
-				err != nil {
-					return err
-				}
-			}
-		case shi.Infix:
-			var args shi.Deque[shi.Form]
-
-			for range m.Args()[1:] {
-				if err := in.PopFront().Emit(&args, vm);
-				err != nil {
-					return err
-				}
-			}
-		default:
-			break
-		}
-
-		vm.Emit(ops.Call(self.Sloc(), m))
-	} else {
-		vm.Emit(ops.Push(*v))
-	}
-	
-	return nil
+	return v.Emit(self.Sloc(), in, vm)
 }
 
 func (self Id) Quote(vm *shi.VM) shi.Value {

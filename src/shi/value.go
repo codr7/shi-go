@@ -28,6 +28,10 @@ func (self Value) Dup(vm *VM) Value {
 	return self.Type.Dup(self, vm)
 }
 
+func (self Value) Emit(sloc Sloc, in *Forms, vm *VM) error {
+	return self.Type.Emit(self, sloc, in, vm)
+}
+
 func Cast[T any](v Value, t DataType[T]) T {
 	if v.Type != t {
 		panic(fmt.Sprintf("Expected %v: %v", v.Type, t))

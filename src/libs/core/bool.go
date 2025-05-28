@@ -2,6 +2,7 @@ package core
 
 import (
 	"bufio"
+	"shi/src/ops"
 	"shi/src/shi"
 )
 
@@ -23,6 +24,11 @@ func (self TBool) Dump(v shi.Value, out *bufio.Writer, vm *shi.VM) error {
 	
 	_, err := out.WriteRune('F')
 	return err
+}
+
+func (_ TBool) Emit(value shi.Value, sloc shi.Sloc, in *shi.Forms, vm *shi.VM) error {
+	vm.Emit(ops.Push(value))
+	return nil
 }
 
 func (self TBool) Write(v shi.Value, out *bufio.Writer, vm *shi.VM) error {

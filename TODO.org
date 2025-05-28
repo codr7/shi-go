@@ -1,5 +1,7 @@
-* move id emit logic to Value/Type.Emit
-** default push
+* replace Deque[Form] with Forms
+** grep
+
+* move core.T/F from lib to bool type
 
 * add Method.ResultType()
 ** add BaseMethod field/Init/BindMethod
