@@ -23,7 +23,9 @@ func (self *Scope) Init(sloc shi.Sloc, forms shi.Deque[shi.Form]) *Scope {
 
 func (self *Scope) Emit(in *shi.Deque[shi.Form], vm *shi.VM) error {
 	fs := self.forms
-	return EmitAll(&fs, vm)
+	return vm.WithLib(nil, func () error {
+		return EmitAll(&fs, vm)
+	})
 }
 
 func (self Scope) Quote(vm *shi.VM) shi.Value {

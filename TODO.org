@@ -1,9 +1,3 @@
-* drop shell mode
-* drop term.outFile()
-
-* add vm.WithLib(func())
-** use in scope emit
-
 * add method type
 ** add +/- methods
 

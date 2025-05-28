@@ -12,10 +12,10 @@ type TCore struct {
 var Core TCore
 
 func init() {
-	Core.Init("core")
+	Core.Init(shi.S("core"), nil)
 }
 
-func (self *TCore) Init(name string) {
+func (self *TCore) Init(name shi.Sym, parentLib shi.Lib) {
 	self.BaseLib.Init(name, nil)
 	self.BindType(&core.Bool)
 	self.BindType(&core.Int)

@@ -8,6 +8,11 @@ import (
 	"shi/src/forms"
 )
 
+const (
+	CTRL_D = rune(4)
+	ENTER = rune(13)
+)
+
 func Repl(vm *shi.VM) {
 	var t shi.Term
 	t.Init(os.Stdin, os.Stdout)
@@ -26,8 +31,8 @@ func Repl(vm *shi.VM) {
 			
 			if len(in) == 1 {
 				c := in[0]
-				
-				if c == 13 {
+
+				if c == ENTER {
 					if line.Len() == 0 {
 						break
 					} else {
@@ -37,7 +42,7 @@ func Repl(vm *shi.VM) {
 						t.Br().Printf("%2v ", sloc.Line()+i).Flush()
 						i++
 					}
-				} else if c == 4 {
+				} else if c == CTRL_D {
 					return
 				} else {
 					line.WriteRune(c)

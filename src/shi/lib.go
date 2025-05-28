@@ -10,6 +10,7 @@ type Lib interface {
 	Bind(Sym, Value)
 	Find(k Sym) *Value
 	Import(source Lib, keys...Sym) error
+	Init(name Sym, parentLib Lib)
 	Name() Sym
 }
 
@@ -19,8 +20,9 @@ type BaseLib struct {
 	bindings map[Sym]Value
 }
 
-func (self *BaseLib) Init(name string, parentLib Lib) {
-	self.name = S(name)
+func (self *BaseLib) Init(name Sym, parentLib Lib) {
+	self.name = name
+	self.parentLib = parentLib
 	self.bindings = make(map[Sym]Value)
 }
 

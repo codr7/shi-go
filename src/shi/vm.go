@@ -20,7 +20,7 @@ type VM struct {
 }
 
 func (self *VM) Init(reader Reader) *VM {
-	self.userLib.Init("user", nil)
+	self.userLib.Init(S("user"), nil)
 	self.currentLib = &self.userLib
 	self.reader = reader
 	return self
@@ -90,4 +90,17 @@ func (self *VM) ReadAll(in *bufio.Reader, out *Deque[Form], sloc *Sloc) error {
 	}
 
 	return nil
+}
+
+func (self *VM) WithLib(lib Lib, body func() error) error {
+	prev := self.currentLib
+
+	if lib == nil {
+		lib = new(BaseLib)
+		lib.Init(self.currentLib.Name(), self.currentLib) 
+	}
+	
+	self.currentLib = lib
+	defer func () { self.currentLib = prev }()
+	return body()
 }
