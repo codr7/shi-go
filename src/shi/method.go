@@ -13,7 +13,7 @@ func (self MethodArgs) Add(name Sym, t Type) MethodArgs {
 
 type Method interface {
 	Args() []MethodArg
-	Call(Sloc, PC, *VM) (PC, error)
+	Call(Sloc, PC, *Values, *VM) (PC, error)
 	Name() Sym
 	ResultType() Type
 }
@@ -36,7 +36,7 @@ func (self BaseMethod) Name() Sym {
 	return self.name
 }
 
-type GoMethodBody = func (sloc Sloc, vm *VM) error
+type GoMethodBody = func (sloc Sloc, stack *Values, vm *VM) error
 
 type GoMethod struct {
 	BaseMethod
@@ -50,8 +50,8 @@ func (self *GoMethod) Init(name Sym, args []MethodArg, resultType Type, body GoM
 	self.body = body
 }
 
-func (self GoMethod) Call(sloc Sloc, pc PC, vm *VM) (PC, error) {
-	return pc, self.body(sloc, vm)
+func (self GoMethod) Call(sloc Sloc, pc PC, stack *Values, vm *VM) (PC, error) {
+	return pc, self.body(sloc, stack, vm)
 }
 
 func (self GoMethod) ResultType() Type {

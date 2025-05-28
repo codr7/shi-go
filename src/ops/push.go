@@ -13,8 +13,8 @@ func Push(value shi.Value) *TPush {
 }
 
 func (self *TPush) Compile(vm *shi.VM, pc shi.PC) shi.OpEval {
-	return func () (shi.PC, error) {
-		vm.Stack.Push(self.value.Dup(vm))
+	return func (stack *shi.Values) (shi.PC, error) {
+		stack.Push(self.value.Dup(vm))
 		return pc+1, nil
 	}
 }

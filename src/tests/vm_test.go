@@ -21,9 +21,10 @@ func TestGet(t *testing.T) {
 
 	pc := vm.EmitPC()
 	vm.Emit(ops.Get(r))
-	vm.Eval(pc, -1)
+	var stack shi.Values
+	vm.Eval(pc, -1, &stack)
 
-	if v := vm.Stack.Pop().Data; v != 42 {
+	if v := stack.Pop().Data; v != 42 {
 		t.Fatalf("Expected 42, actual %v", v)
 	}
 }
@@ -32,10 +33,11 @@ func TestPushValue(t *testing.T) {
 	vm := newVM()
 
 	pc := vm.EmitPC()
-	vm.Emit(ops.Push(shi.V(&core.Int, 42))) 
-	vm.Eval(pc, -1)
+	vm.Emit(ops.Push(shi.V(&core.Int, 42)))
+	var stack shi.Values
+	vm.Eval(pc, -1, &stack)
 
-	if v := vm.Stack.Pop().Data; v != 42 {
+	if v := stack.Pop().Data; v != 42 {
 		t.Fatalf("Expected 42, actual %v", v)
 	}
 }
@@ -45,8 +47,9 @@ func TestPutValue(t *testing.T) {
 
 	r := vm.AllocateRegisters(1)
 	pc := vm.EmitPC()
-	vm.Emit(ops.Put(r, shi.V(&core.Int, 42))) 
-	vm.Eval(pc, -1)
+	vm.Emit(ops.Put(r, shi.V(&core.Int, 42)))
+	var stack shi.Values
+	vm.Eval(pc, -1, &stack)
 
 	if v := vm.Registers.Items[r].Data; v != 42 {
 		t.Fatalf("Expected 42, actual %v", v)

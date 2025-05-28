@@ -15,7 +15,8 @@ func Repl(vm *shi.VM) {
 
 	var code bytes.Buffer
 	sloc := shi.NewSloc("repl")
-
+	var stack shi.Values
+	
 	for {
 		t.Printf("%2v ", sloc.Line()).Flush()
 		var line bytes.Buffer
@@ -64,14 +65,14 @@ func Repl(vm *shi.VM) {
 			goto DONE
 		}
 		
-		if err := vm.Eval(pc, -1); err != nil {
+		if err := vm.Eval(pc, -1, &stack); err != nil {
 			t.Br().Println(err).Flush()
 			goto DONE
 		}
 		
 	DONE:
 		t.Br()
-		shi.DumpStack(vm.Stack, t.Out(), vm)
+		shi.DumpStack(stack, t.Out(), vm)
 		t.Br().Br().Flush()
 	}
 }

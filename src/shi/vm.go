@@ -6,10 +6,10 @@ import (
 
 type PC = int
 type Register = int
-	
+type Values = Stack[Value]
+
 type VM struct {
-	Registers Stack[Value]
-	Stack Stack[Value]
+	Registers Values
 
 	currentLib Lib
 	userLib BaseLib
@@ -56,7 +56,7 @@ func (self VM) EmitPC() PC {
 	return self.ops.Len()
 }
 
-func (self *VM) Eval(from, to PC) error {
+func (self *VM) Eval(from, to PC, stack *Values) error {
 	if to == -1 {
 		to = self.ops.Len()
 	}
@@ -69,7 +69,7 @@ func (self *VM) Eval(from, to PC) error {
 	
 	for pc := from;
 	err == nil && pc < to;
-	pc, err = self.opEvals.Items[pc]() {
+	pc, err = self.opEvals.Items[pc](stack) {
 		//Do nothing
 	}
 

@@ -14,7 +14,7 @@ func Call(sloc shi.Sloc, target shi.Method) *TCall {
 }
 
 func (self *TCall) Compile(vm *shi.VM, pc shi.PC) shi.OpEval {
-	return func () (shi.PC, error) {
-		return self.target.Call(self.sloc, pc+1, vm)
+	return func (stack *shi.Values) (shi.PC, error) {
+		return self.target.Call(self.sloc, pc+1, stack, vm)
 	}
 }

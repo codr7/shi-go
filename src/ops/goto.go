@@ -11,7 +11,7 @@ func Goto(pc shi.PC) *TGoto {
 }
 
 func (self *TGoto) Compile(vm *shi.VM, pc shi.PC) shi.OpEval {
-	return func() (shi.PC, error) {
+	return func(stack *shi.Values) (shi.PC, error) {
 		return self.pc, nil
 	}
 }

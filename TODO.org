@@ -1,6 +1,6 @@
-* add int reader
+* add stack Values-arg arg to Form.Emit
 
-* add Stack[Type] arg to Form.Emit
+* add int reader
 
 * fix term backspace
 ** declare constant

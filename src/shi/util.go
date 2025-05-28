@@ -5,10 +5,10 @@ import (
 	"unique"
 )
 
-func DumpStack(s Stack[Value], out *bufio.Writer, vm *VM) error {
+func DumpStack(stack Values, out *bufio.Writer, vm *VM) error {
 	out.WriteRune('[')
 
-	for i, v := range s.Items {
+	for i, v := range stack.Items {
 		if i > 0 {
 			if _, err := out.WriteRune(' '); err != nil {
 				return err
