@@ -15,6 +15,7 @@ type Method interface {
 	Args() []MethodArg
 	Call(Sloc, PC, *VM) (PC, error)
 	Name() Sym
+	ResultType() Type
 }
 
 type BaseMethod struct {
@@ -40,13 +41,19 @@ type GoMethodBody = func (sloc Sloc, vm *VM) error
 type GoMethod struct {
 	BaseMethod
 	body GoMethodBody
+	resultType Type
 }
 
-func (self *GoMethod) Init(name Sym, args []MethodArg, body GoMethodBody) {
+func (self *GoMethod) Init(name Sym, args []MethodArg, resultType Type, body GoMethodBody) {
 	self.BaseMethod.Init(name, args)
+	self.resultType = resultType
 	self.body = body
 }
 
-func (self *GoMethod) Call(sloc Sloc, pc PC, vm *VM) (PC, error) {
+func (self GoMethod) Call(sloc Sloc, pc PC, vm *VM) (PC, error) {
 	return pc, self.body(sloc, vm)
+}
+
+func (self GoMethod) ResultType() Type {
+	return self.resultType
 }

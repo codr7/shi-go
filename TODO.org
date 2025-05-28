@@ -1,5 +1,4 @@
-* add Method.ResultType()
-** add BaseMethod field/Init/BindMethod
+* add int reader
 
 * add Stack[Type] arg to Form.Emit
 
@@ -10,9 +9,10 @@
 ** add ansi functionality to term
 *** sharpl
 
-* add int reader
-
 * --
+
+* add List type
+** use in Scope quote
 
 * add macro type
 
