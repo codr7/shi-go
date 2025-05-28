@@ -76,7 +76,7 @@ func (self *VM) Eval(from, to PC) error {
 	return err
 }
 
-func (self *VM) ReadAll(in *bufio.Reader, out *Deque[Form], sloc *Sloc) error {
+func (self *VM) ReadAll(in *bufio.Reader, out *Forms, sloc *Sloc) error {
 	for {
 		ok, err := self.reader.Read(self, in, out, sloc)
 

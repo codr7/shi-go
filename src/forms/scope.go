@@ -8,20 +8,20 @@ import (
 
 type Scope struct {
 	shi.BaseForm
-	forms shi.Deque[shi.Form]
+	forms shi.Forms
 }
 
-func NewScope(sloc shi.Sloc, forms shi.Deque[shi.Form]) *Scope {
+func NewScope(sloc shi.Sloc, forms shi.Forms) *Scope {
 	return new(Scope).Init(sloc, forms)
 }
 
-func (self *Scope) Init(sloc shi.Sloc, forms shi.Deque[shi.Form]) *Scope {
+func (self *Scope) Init(sloc shi.Sloc, forms shi.Forms) *Scope {
 	self.BaseForm.Init(sloc)
 	self.forms = forms
 	return self
 }
 
-func (self *Scope) Emit(in *shi.Deque[shi.Form], vm *shi.VM) error {
+func (self *Scope) Emit(in *shi.Forms, vm *shi.VM) error {
 	fs := self.forms
 	return vm.WithLib(nil, func () error {
 		return EmitAll(&fs, vm)
@@ -30,7 +30,7 @@ func (self *Scope) Emit(in *shi.Deque[shi.Form], vm *shi.VM) error {
 
 func (self Scope) Quote(vm *shi.VM) shi.Value {
 	//TODO emit list
-	return core.NIL
+	return core.N
 }
 
 func (self Scope) Dump(out *bufio.Writer) error {

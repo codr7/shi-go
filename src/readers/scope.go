@@ -13,7 +13,7 @@ type TScope struct {
 
 var Scope TScope
 
-func (self TScope) Read(vm *shi.VM, in *bufio.Reader, out *shi.Deque[shi.Form], sloc *shi.Sloc) (bool, error) {
+func (self TScope) Read(vm *shi.VM, in *bufio.Reader, out *shi.Forms, sloc *shi.Sloc) (bool, error) {
 	formSloc := *sloc
 	
 	if c, _, err := in.ReadRune(); err != nil {
@@ -29,7 +29,7 @@ func (self TScope) Read(vm *shi.VM, in *bufio.Reader, out *shi.Deque[shi.Form], 
 		sloc.Step(c)
 	}
 
-	var buf shi.Deque[shi.Form]
+	var buf shi.Forms
 	
 	for {
 		if _, err := Space.Read(vm, in, &buf, sloc); err != nil {

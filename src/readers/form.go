@@ -11,7 +11,7 @@ type TForm struct {
 
 var Form TForm
 
-func (self TForm) Read(vm *shi.VM, in *bufio.Reader, out *shi.Deque[shi.Form], sloc *shi.Sloc) (bool, error) {
+func (self TForm) Read(vm *shi.VM, in *bufio.Reader, out *shi.Forms, sloc *shi.Sloc) (bool, error) {
 	if _, err := Space.Read(vm, in, out, sloc); err != nil {
 		return false, err
 	}

@@ -11,9 +11,13 @@ type TBool struct {
 }
 
 var Bool TBool
+var T shi.Value
+var F shi.Value
 
 func init() {
 	Bool.Init(shi.S("Bool"))
+	T.Init(&Bool, true)
+	F.Init(&Bool, false)
 }
 
 func (self TBool) Dump(v shi.Value, out *bufio.Writer, vm *shi.VM) error {

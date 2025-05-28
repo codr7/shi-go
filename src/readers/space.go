@@ -12,7 +12,7 @@ type TSpace struct {
 
 var Space TSpace
 
-func (self TSpace) Read(vm *shi.VM, in *bufio.Reader, out *shi.Deque[shi.Form], sloc *shi.Sloc) (bool, error) {
+func (self TSpace) Read(vm *shi.VM, in *bufio.Reader, out *shi.Forms, sloc *shi.Sloc) (bool, error) {
 	found := false
 	
 	for {

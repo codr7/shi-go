@@ -10,11 +10,11 @@ type TNil struct {
 }
 
 var Nil TNil
-var NIL shi.Value
+var N shi.Value
 
 func init() {
 	Nil.Init(shi.S("Nil"))
-	NIL.Init(&Nil, nil)
+	N.Init(&Nil, nil)
 }
 
 func (_ TNil) Emit(value shi.Value, sloc shi.Sloc, in *shi.Forms, vm *shi.VM) error {

@@ -1,10 +1,7 @@
-* replace Deque[Form] with Forms
-** grep
-
-* move core.T/F from lib to bool type
-
 * add Method.ResultType()
 ** add BaseMethod field/Init/BindMethod
+
+* add Stack[Type] arg to Form.Emit
 
 * fix term backspace
 ** declare constant

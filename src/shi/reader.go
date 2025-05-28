@@ -5,5 +5,5 @@ import (
 )
 
 type Reader interface {
-	Read(*VM, *bufio.Reader, *Deque[Form], *Sloc) (bool, error)
+	Read(*VM, *bufio.Reader, *Forms, *Sloc) (bool, error)
 }

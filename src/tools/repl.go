@@ -50,7 +50,7 @@ func Repl(vm *shi.VM) {
 		}
 		
 		pc := vm.EmitPC()
-		var fs shi.Deque[shi.Form]
+		var fs shi.Forms
 		
 		if err := vm.ReadAll(bufio.NewReader(&code), &fs, sloc);
 		err != nil {
