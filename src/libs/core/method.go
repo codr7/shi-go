@@ -17,21 +17,10 @@ func init() {
 
 func (self *TMethod) Emit(value shi.Value, sloc shi.Sloc, in *shi.Forms, vm *shi.VM) error {
 	m := shi.Cast(value, self)
-	var mas []shi.MethodArg
+	var emitArgs shi.Forms
 
-	switch m.Notation() {
-	case shi.Prefix:
-		mas = m.Args()
-	case shi.Infix:
-		mas = m.Args()[1:]
-	case shi.Postfix:
-		break
-	}
-	
-	var eas shi.Forms
-
-	for range mas {
-		if err := in.PopFront().Emit(&eas, vm); err != nil {
+	for range m.Args() {
+		if err := in.PopFront().Emit(&emitArgs, vm); err != nil {
 			return err
 		}
 	}

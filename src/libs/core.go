@@ -28,7 +28,7 @@ func (self *TCore) Init(name shi.Sym, parentLib shi.Lib) {
 	self.Bind(shi.S("T"), shi.V(&core.Bool, true))
 	self.Bind(shi.S("F"), shi.V(&core.Bool, false))
 
-	BindMethod(self, shi.S("+"), shi.Infix,
+	BindMethod(self, shi.S("+"),
 		shi.MethodArgs{}.
 			Add(shi.S("x"), &core.Int).
 			Add(shi.S("y"), &core.Int),

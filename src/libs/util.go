@@ -5,9 +5,9 @@ import (
 	"shi/src/libs/core"
 )
 
-func BindMethod(l shi.Lib, name shi.Sym, notation shi.Notation, args []shi.MethodArg, body shi.GoMethodBody) {
+func BindMethod(l shi.Lib, name shi.Sym, args []shi.MethodArg, body shi.GoMethodBody) {
 	m := new(shi.GoMethod)
-	m.Init(name, notation, args, body)
+	m.Init(name, args, body)
 	l.Bind(name, shi.V(&core.Method, shi.Method(m)))
 }
 

@@ -1,13 +1,5 @@
 package shi
 
-type Notation int
-
-const (
-	Prefix = Notation(0)
-	Infix = Notation(1)
-	Postfix = Notation(2)
-)
-
 type MethodArg struct {
 	Name Sym
 	Type Type
@@ -23,18 +15,15 @@ type Method interface {
 	Args() []MethodArg
 	Call(Sloc, PC, *VM) (PC, error)
 	Name() Sym
-	Notation() Notation
 }
 
 type BaseMethod struct {
 	args []MethodArg
 	name Sym
-	notation Notation
 }
 
-func (self *BaseMethod) Init(name Sym, notation Notation, args []MethodArg) {
+func (self *BaseMethod) Init(name Sym, args []MethodArg) {
 	self.name = name
-	self.notation = notation
 	self.args = args
 }
 
@@ -46,10 +35,6 @@ func (self BaseMethod) Name() Sym {
 	return self.name
 }
 
-func (self BaseMethod) Notation() Notation {
-	return self.notation
-}
-
 type GoMethodBody = func (sloc Sloc, vm *VM) error
 
 type GoMethod struct {
@@ -57,8 +42,8 @@ type GoMethod struct {
 	body GoMethodBody
 }
 
-func (self *GoMethod) Init(name Sym, notation Notation, args []MethodArg, body GoMethodBody) {
-	self.BaseMethod.Init(name, notation, args)
+func (self *GoMethod) Init(name Sym, args []MethodArg, body GoMethodBody) {
+	self.BaseMethod.Init(name, args)
 	self.body = body
 }
 
