@@ -31,7 +31,37 @@ func (self *Id) Emit(in *shi.Deque[shi.Form], vm *shi.VM) error {
 			self.name.Value())
 	}
 
-	vm.Emit(ops.Push(*v))
+	if v.Type == &core.Method {
+		m := shi.Cast(*v, &core.Method)
+
+		switch m.Notation() {
+		case shi.Prefix:
+			var args shi.Deque[shi.Form]
+			
+			for range m.Args() {
+				if err := in.PopFront().Emit(&args, vm);
+				err != nil {
+					return err
+				}
+			}
+		case shi.Infix:
+			var args shi.Deque[shi.Form]
+
+			for range m.Args()[1:] {
+				if err := in.PopFront().Emit(&args, vm);
+				err != nil {
+					return err
+				}
+			}
+		default:
+			break
+		}
+
+		vm.Emit(ops.Call(self.Sloc(), m))
+	} else {
+		vm.Emit(ops.Push(*v))
+	}
+	
 	return nil
 }
 

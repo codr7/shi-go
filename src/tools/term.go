@@ -1,4 +1,4 @@
-package shi
+package tools
 
 import (
 	"bufio"
@@ -11,12 +11,16 @@ import (
 	t "golang.org/x/crypto/ssh/terminal"
 )
 
-const LineBreak = "\r\n"
+const (
+	CtrlD = rune(4)
+	Enter = rune(13)
+)
 
 type Term struct {
 	fd int
 	height int
 	inFile *os.File
+	lineBreak string
 	out *bufio.Writer
 	outFile *os.File
 	state *t.State
@@ -41,11 +45,12 @@ func (self *Term) Init(in *os.File, out *os.File) *Term {
 	}
 
 	self.out = bufio.NewWriter(&self.Buffer)
+	self.lineBreak = "\r\n"
 	return self
 }
 
 func (self *Term) Br() *Term {
-	self.out.WriteString(LineBreak)
+	self.out.WriteString(self.lineBreak)
 	return self
 }
 

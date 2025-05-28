@@ -17,16 +17,25 @@ func init() {
 
 func (self *TCore) Init(name shi.Sym, parentLib shi.Lib) {
 	self.BaseLib.Init(name, nil)
-	self.BindType(&core.Bool)
-	self.BindType(&core.Int)
-	self.BindType(&core.Meta)
-	self.BindType(&core.Nil)
-	self.BindType(&core.Sym)
+
+	BindType(self, &core.Bool)
+	BindType(self, &core.Int)
+	BindType(self, &core.Meta)
+	BindType(self, &core.Method)
+	BindType(self, &core.Nil)
+	BindType(self, &core.Sym)
 
 	self.Bind(shi.S("T"), shi.V(&core.Bool, true))
 	self.Bind(shi.S("F"), shi.V(&core.Bool, false))
-}
 
-func (self *TCore) BindType(t shi.Type) {
-	self.Bind(t.Name(), shi.V(&core.Meta, t))
+	BindMethod(self, shi.S("+"), shi.Infix,
+		shi.MethodArgs{}.
+			Add(shi.S("x"), &core.Int).
+			Add(shi.S("y"), &core.Int),
+		func (sloc shi.Sloc, vm *shi.VM) error {
+			y := shi.Cast(vm.Stack.Pop(), &core.Int)
+			x := vm.Stack.Peek()
+			x.Data = shi.Cast(*x, &core.Int) + y
+			return nil
+		})
 }

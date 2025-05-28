@@ -1,0 +1,16 @@
+package libs
+
+import (
+	"shi/src/shi"
+	"shi/src/libs/core"
+)
+
+func BindMethod(l shi.Lib, name shi.Sym, notation shi.Notation, args []shi.MethodArg, body shi.GoMethodBody) {
+	m := new(shi.GoMethod)
+	m.Init(name, notation, args, body)
+	l.Bind(name, shi.V(&core.Method, shi.Method(m)))
+}
+
+func BindType(l shi.Lib, t shi.Type) {
+	l.Bind(t.Name(), shi.V(&core.Meta, t))
+}

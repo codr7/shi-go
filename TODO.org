@@ -1,5 +1,19 @@
-* add method type
-** add +/- methods
+* move id emit logic to Value/Type.Emit
+** default push
+
+* add Method.ResultType()
+** add BaseMethod field/Init/BindMethod
+
+* fix term backspace
+** declare constant
+** update line
+** update term buffer
+** add ansi functionality to term
+*** sharpl
+
+* add int reader
+
+* --
 
 * add macro type
 
@@ -11,9 +25,6 @@
 
 * add quoting
 ** add quote reader
-
-* add ansi functionality to term
-** sharpl
 
 scrl
 

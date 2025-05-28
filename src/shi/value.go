@@ -28,11 +28,10 @@ func (self Value) Dup(vm *VM) Value {
 	return self.Type.Dup(self, vm)
 }
 
-func Cast[T any](v Value, t DataType[T]) (T, error) {
+func Cast[T any](v Value, t DataType[T]) T {
 	if v.Type != t {
-		var tv T
-		return tv, fmt.Errorf("Expected %v: %v", v.Type, t)
+		panic(fmt.Sprintf("Expected %v: %v", v.Type, t))
 	}
 	
-	return v.Data.(T), nil
+	return v.Data.(T)
 }
