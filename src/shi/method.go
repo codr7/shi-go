@@ -36,24 +36,24 @@ func (self BaseMethod) Name() Sym {
 	return self.name
 }
 
-type GoMethodBody = func (sloc Sloc, stack *Values, vm *VM) error
+type HostMethodBody = func (sloc Sloc, stack *Values, vm *VM) error
 
-type GoMethod struct {
+type HostMethod struct {
 	BaseMethod
-	body GoMethodBody
+	body HostMethodBody
 	resultType Type
 }
 
-func (self *GoMethod) Init(name Sym, args []MethodArg, resultType Type, body GoMethodBody) {
+func (self *HostMethod) Init(name Sym, args []MethodArg, resultType Type, body HostMethodBody) {
 	self.BaseMethod.Init(name, args)
 	self.resultType = resultType
 	self.body = body
 }
 
-func (self GoMethod) Call(sloc Sloc, pc PC, stack *Values, vm *VM) (PC, error) {
+func (self HostMethod) Call(sloc Sloc, pc PC, stack *Values, vm *VM) (PC, error) {
 	return pc, self.body(sloc, stack, vm)
 }
 
-func (self GoMethod) ResultType() Type {
+func (self HostMethod) ResultType() Type {
 	return self.resultType
 }

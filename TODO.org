@@ -1,9 +1,4 @@
-* commit
-* pass *PC parameter to OpEval/Method.Call instead of return
-
 * add stack Values-arg arg to Form.Emit
-
-* rename GoMethod to HostMethod
 
 * remove Form.Quote
 
