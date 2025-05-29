@@ -16,8 +16,9 @@ func newVM() *shi.VM {
 func TestGet(t *testing.T) {
 	vm := newVM()
 
-	r := vm.AllocateRegisters(1)
-	vm.Registers.Items[r] = shi.V(&core.Int, 42)
+	r := vm.AllocRegisters(1)
+	v := shi.V(&core.Int, 42)
+	vm.Registers.Items[r] = &v
 
 	pc := vm.EmitPC()
 	vm.Emit(ops.Get(r))
@@ -45,7 +46,7 @@ func TestPushValue(t *testing.T) {
 func TestPutValue(t *testing.T) {
 	vm := newVM()
 
-	r := vm.AllocateRegisters(1)
+	r := vm.AllocRegisters(1)
 	pc := vm.EmitPC()
 	vm.Emit(ops.Put(r, shi.V(&core.Int, 42)))
 	var stack shi.Values

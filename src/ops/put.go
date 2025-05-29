@@ -13,7 +13,8 @@ func Put(target shi.Register, value shi.Value) *TPut {
 
 func (self *TPut) Compile(vm *shi.VM, pc shi.PC) shi.OpEval {
 	return func (stack *shi.Values) (shi.PC, error) {
-		vm.Registers.Items[self.target] = self.value.Dup(vm)
+		v := self.value.Dup(vm)
+		vm.Registers.Items[self.target] = &v
 		return pc+1, nil
 	}
 }

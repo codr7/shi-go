@@ -1,6 +1,17 @@
+* commit
+* pass *PC parameter to OpEval/Method.Call instead of return
+
 * add stack Values-arg arg to Form.Emit
 
+* rename GoMethod to HostMethod
+
+* remove Form.Quote
+
+* rename repo to shi-go
+
 * add int reader
+
+* add ScriptMethod
 
 * fix term backspace
 ** declare constant
@@ -9,21 +20,13 @@
 ** add ansi functionality to term
 *** sharpl
 
-* --
-
-* add List type
-** use in Scope quote
-
-* add macro type
-
-* add define macro
-* add let macro
+* add macros like methods
+** HostMacro
 
 * add if macro
 ** optional else
 
-* add quoting
-** add quote reader
+* fib
 
 scrl
 

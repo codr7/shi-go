@@ -9,7 +9,7 @@ type Register = int
 type Values = Stack[Value]
 
 type VM struct {
-	Registers Values
+	Registers Stack[*Value]
 
 	currentLib Lib
 	userLib BaseLib
@@ -26,11 +26,11 @@ func (self *VM) Init(reader Reader) *VM {
 	return self
 }
 
-func (self *VM) AllocateRegisters(n int) Register {
+func (self *VM) AllocRegisters(n int) Register {
 	result := self.Registers.Len()
 
 	for i := 0; i < n; i++ {
-		self.Registers.Push(Value{})
+		self.Registers.Push(nil)
 	}
 
 	return result
