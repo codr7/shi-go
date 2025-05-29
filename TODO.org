@@ -1,9 +1,5 @@
 * add stack Values-arg arg to Form.Emit
 
-* remove Form.Quote
-
-* rename repo to shi-go
-
 * add int reader
 
 * add ScriptMethod
@@ -22,6 +18,8 @@
 ** optional else
 
 * fib
+
+* rename repo to shi-go?
 
 scrl
 

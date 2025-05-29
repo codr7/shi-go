@@ -3,7 +3,6 @@ package forms
 import (
 	"bufio"
 	"shi/src/shi"
-	"shi/src/libs/core"
 )
 
 type Scope struct {
@@ -26,11 +25,6 @@ func (self *Scope) Emit(in *shi.Forms, vm *shi.VM) error {
 	return vm.WithLib(nil, func () error {
 		return EmitAll(&fs, vm)
 	})
-}
-
-func (self Scope) Quote(vm *shi.VM) shi.Value {
-	//TODO emit list
-	return core.N
 }
 
 func (self Scope) Dump(out *bufio.Writer) error {

@@ -9,7 +9,6 @@ type Forms = Deque[Form]
 type Form interface {
 	Sloc() Sloc
 	Emit(in *Forms, vm *VM) error
-	Quote(vm *VM) Value
 	Dump(out *bufio.Writer) error
 }
 

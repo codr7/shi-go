@@ -3,7 +3,6 @@ package forms
 import (
 	"bufio"
 	"shi/src/shi"
-	"shi/src/libs/core"
 )
 
 type Id struct {
@@ -31,10 +30,6 @@ func (self *Id) Emit(in *shi.Forms, vm *shi.VM) error {
 	}
 
 	return v.Emit(self.Sloc(), in, vm)
-}
-
-func (self Id) Quote(vm *shi.VM) shi.Value {
-	return shi.V(&core.Sym, self.name)
 }
 
 func (self Id) Dump(out *bufio.Writer) error {
