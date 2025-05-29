@@ -33,7 +33,6 @@ func (self *TCore) Init(name shi.Sym, parentLib shi.Lib) {
 		shi.MethodArgs{}.
 			Add(shi.S("x"), &core.Int).
 			Add(shi.S("y"), &core.Int),
-		&core.Int,
 		func (sloc shi.Sloc, stack *shi.Values, vm *shi.VM) error {
 			y := shi.Cast(stack.Pop(), &core.Int)
 			x := stack.Peek()

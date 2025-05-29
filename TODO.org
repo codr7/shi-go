@@ -1,5 +1,3 @@
-* add stack Values-arg arg to Form.Emit
-
 * add int reader
 
 * add ScriptMethod
