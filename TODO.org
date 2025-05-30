@@ -1,9 +1,7 @@
-* add int reader
-
-* add ScriptMethod
+* change id form to take sym
 
 * fix term backspace
-** declare constant
+** declare key constant
 ** update line
 ** update term buffer
 ** add ansi functionality to term
@@ -14,6 +12,8 @@
 
 * add if macro
 ** optional else
+
+* add ScriptMethod
 
 * fib
 

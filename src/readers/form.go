@@ -30,7 +30,7 @@ func (self TForm) Read(vm *shi.VM, in *bufio.Reader, out *shi.Forms, sloc *shi.S
 	
 	switch c {
 	case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9':
-		return false, shi.NewReadError(*sloc, "Not implemented")
+		return Int.Read(vm, in, out, sloc)
 	case '(':
 		return Scope.Read(vm, in, out, sloc)
 	default:

@@ -9,7 +9,7 @@ type Forms = Deque[Form]
 type Form interface {
 	Sloc() Sloc
 	Emit(in *Forms, vm *VM) error
-	Dump(out *bufio.Writer) error
+	Dump(out *bufio.Writer, vm *VM) error
 }
 
 type BaseForm struct {

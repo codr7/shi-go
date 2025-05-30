@@ -20,14 +20,14 @@ func (self *Scope) Init(sloc shi.Sloc, forms shi.Forms) *Scope {
 	return self
 }
 
-func (self *Scope) Emit(in *shi.Forms, vm *shi.VM) error {
+func (self Scope) Emit(in *shi.Forms, vm *shi.VM) error {
 	fs := self.forms
 	return vm.WithLib(nil, func () error {
 		return EmitAll(&fs, vm)
 	})
 }
 
-func (self Scope) Dump(out *bufio.Writer) error {
+func (self Scope) Dump(out *bufio.Writer, vm *shi.VM) error {
 	if _, err := out.WriteRune('('); err != nil {
 		return err
 	}
@@ -39,7 +39,7 @@ func (self Scope) Dump(out *bufio.Writer) error {
 			}
 		}
 
-		if err := f.Dump(out); err != nil {
+		if err := f.Dump(out, vm); err != nil {
 			return err
 		}
 	}
