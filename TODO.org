@@ -1,5 +1,3 @@
-* change id form to take sym
-
 * fix term backspace
 ** declare key constant
 ** update line

@@ -10,8 +10,8 @@ type Id struct {
 	name shi.Sym
 }
 
-func NewId(sloc shi.Sloc, name string) *Id {
-	return new(Id).Init(sloc, shi.S(name))
+func NewId(sloc shi.Sloc, name shi.Sym) *Id {
+	return new(Id).Init(sloc, name)
 }
 
 func (self *Id) Init(sloc shi.Sloc, name shi.Sym) *Id {

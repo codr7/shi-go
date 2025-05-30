@@ -44,6 +44,6 @@ func (self TId) Read(vm *shi.VM, in *bufio.Reader, out *shi.Forms, sloc *shi.Slo
 		return false, nil
 	}
 	
-	out.PushBack(forms.NewId(formSloc, buf.String()))
+	out.PushBack(forms.NewId(formSloc, shi.S(buf.String())))
 	return true, nil
 }
