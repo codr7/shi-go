@@ -3,6 +3,7 @@ package tools
 import (
 	"bufio"
 	"bytes"
+	//"fmt"
 	"os"
 	"shi/src/shi"
 	"shi/src/forms"
@@ -19,29 +20,32 @@ func Repl(vm *shi.VM) {
 	
 	for {
 		t.Printf("%2v ", sloc.Line()).Flush()
-		var line bytes.Buffer
+		var lb bytes.Buffer
 		i := 1
 		
 		for {
 			in, _ := t.GetChar()
-			
-			if len(in) == 1 {
-				c := in[0]
 
-				if c == Enter {
-					if line.Len() == 0 {
+			if len(in) == 1 {
+				if c := in[0]; c == ENTER {
+					if lb.Len() == 0 {
 						break
 					} else {
-						code.WriteString(line.String())
+						code.WriteString(lb.String())
 						code.WriteRune('\n')
-						line.Reset()
+						lb.Reset()
 						t.Br().Printf("%2v ", sloc.Line()+i).Flush()
 						i++
 					}
-				} else if c == CtrlD {
+				} else if c == BACKSPACE {
+					if n := lb.Len(); n > 0 {
+						lb.Truncate(n-1)
+						t.Backspace().Flush()
+					}
+				} else if c == CTRL_D {
 					return
 				} else {
-					line.WriteRune(c)
+					lb.WriteRune(c)
 					t.Out().WriteRune(c)
 					t.Flush()
 				}

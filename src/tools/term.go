@@ -12,8 +12,9 @@ import (
 )
 
 const (
-	CtrlD = rune(4)
-	Enter = rune(13)
+	BACKSPACE = rune(127)
+	CTRL_D = rune(4)
+	ENTER = rune(13)
 )
 
 type Term struct {
@@ -49,9 +50,23 @@ func (self *Term) Init(in *os.File, out *os.File) *Term {
 	return self
 }
 
+func (self *Term) Backspace() *Term {
+	self.out.WriteString("\b \b")
+	return self
+}
+
 func (self *Term) Br() *Term {
 	self.out.WriteString(self.lineBreak)
 	return self
+}
+
+func (self *Term) Ctrl(args...any) {
+        self.out.WriteRune(rune(27));
+        self.out.WriteRune('[');
+
+	for _, a := range args {
+		fmt.Fprint(self.out, a)
+	}
 }
 
 func (self *Term) Flush() *Term {
