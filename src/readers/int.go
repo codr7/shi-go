@@ -14,7 +14,7 @@ type TInt struct {
 
 var Int TInt
 
-func (self TInt) Read(vm *shi.VM, in *bufio.Reader, out *shi.Forms, sloc *shi.Sloc) (bool, error) {
+func (_ TInt) Read(vm *shi.VM, in *bufio.Reader, out *shi.Forms, sloc *shi.Sloc) (bool, error) {
 	formSloc := *sloc
 	var v int
 

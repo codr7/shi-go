@@ -13,7 +13,7 @@ type TScope struct {
 
 var Scope TScope
 
-func (self TScope) Read(vm *shi.VM, in *bufio.Reader, out *shi.Forms, sloc *shi.Sloc) (bool, error) {
+func (_ TScope) Read(vm *shi.VM, in *bufio.Reader, out *shi.Forms, sloc *shi.Sloc) (bool, error) {
 	formSloc := *sloc
 	
 	if c, _, err := in.ReadRune(); err != nil {
