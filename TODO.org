@@ -1,8 +1,6 @@
-* add macros like methods
-** HostMacro
+* use Label in goto op
 
-* add if macro
-** optional else
+* add optional else to if-macro
 
 * add ScriptMethod
 

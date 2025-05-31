@@ -1,6 +1,7 @@
 package libs
 
 import (
+	"shi/src/ops"
 	"shi/src/shi"
 	"shi/src/libs/core"
 )
@@ -20,6 +21,7 @@ func (self *TCore) Init(name shi.Sym, parentLib shi.Lib) {
 
 	BindType(self, &core.Bool)
 	BindType(self, &core.Int)
+	BindType(self, &core.Macro)
 	BindType(self, &core.Meta)
 	BindType(self, &core.Method)
 	BindType(self, &core.Nil)
@@ -58,6 +60,24 @@ func (self *TCore) Init(name shi.Sym, parentLib shi.Lib) {
 			y := shi.Cast(stack.Pop(), &core.Int)
 			x := stack.Peek()
 			x.Init(&core.Bool, shi.Cast(*x, &core.Int) < y)
+			return nil
+		})
+
+	BindMacro(self, shi.S("if"),
+		[]string{"cond", "branch"},
+		func (sloc shi.Sloc, in *shi.Forms, vm *shi.VM) error {
+			if err := in.PopFront().Emit(in, vm); err != nil {
+				return err
+			}
+
+			branchEnd := shi.NewLabel()
+			vm.Emit(ops.Branch(branchEnd))
+			
+			if err := in.PopFront().Emit(in, vm); err != nil {
+				return err
+			}
+
+			branchEnd.PC = vm.EmitPC() 
 			return nil
 		})
 }

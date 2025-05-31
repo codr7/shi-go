@@ -5,12 +5,19 @@ import (
 	"shi/src/libs/core"
 )
 
-func BindMethod(l shi.Lib, name shi.Sym, args []shi.MethodArg, body shi.HostMethodBody) {
-	m := new(shi.HostMethod)
+func BindMacro(lib shi.Lib, name shi.Sym, args []string, body shi.HostMacroBody) {
+	m := new(shi.HostMacro)
 	m.Init(name, args, body)
-	l.Bind(name, shi.V(&core.Method, shi.Method(m)))
+	lib.Bind(name, shi.V(&core.Macro, shi.Macro(m)))
 }
 
-func BindType(l shi.Lib, t shi.Type) {
-	l.Bind(t.Name(), shi.V(&core.Meta, t))
+
+func BindMethod(lib shi.Lib, name shi.Sym, args []shi.MethodArg, body shi.HostMethodBody) {
+	m := new(shi.HostMethod)
+	m.Init(name, args, body)
+	lib.Bind(name, shi.V(&core.Method, shi.Method(m)))
+}
+
+func BindType(lib shi.Lib, it shi.Type) {
+	lib.Bind(it.Name(), shi.V(&core.Meta, it))
 }

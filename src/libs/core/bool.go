@@ -21,6 +21,10 @@ func init() {
 	F.Init(&Bool, false)
 }
 
+func (self *TBool) BoolValue(v shi.Value) bool {
+	return shi.Cast(v, self)
+}
+
 func (self *TBool) Dump(v shi.Value, out io.Writer, vm *shi.VM) error {
 	if shi.Cast(v, self) {
 		_, err := fmt.Fprint(out, "T")

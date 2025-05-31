@@ -17,6 +17,10 @@ func init() {
 	N.Init(&Nil, nil)
 }
 
+func (_ *TNil) BoolValue(_ shi.Value) bool {
+	return false
+}
+
 func (_ *TNil) Emit(value shi.Value, sloc shi.Sloc, in *shi.Forms, vm *shi.VM) error {
 	vm.Emit(ops.Push(value))
 	return nil

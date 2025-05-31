@@ -7,6 +7,7 @@ import (
 )
 
 type Type interface {
+	BoolValue(Value) bool
 	Dump(Value, io.Writer, *VM) error
 	Dup(Value, *VM) Value
 	Emit(Value, Sloc, *Forms, *VM) error
@@ -40,14 +41,8 @@ func (self *BaseType[T]) Init(name Sym, superTypes...Type) {
 	}
 }
 
-func (self *BaseType[T]) SuperTypes() iter.Seq[Type] {
-	return func(yield func(Type) bool) {
-		for t, _ := range self.superTypes {
-			if !yield(t) {
-				return
-			}
-		}
-	}
+func (_ *BaseType[T]) BoolValue(_ Value) bool {
+	return true
 }
 
 func (_ *BaseType[T]) Dump(v Value, out io.Writer, vm *VM) error {
@@ -70,6 +65,16 @@ func (self *BaseType[T]) String() string {
 func (self *BaseType[T]) SubtypeOf(other Type) bool {
 	_, ok := self.superTypes[other]
 	return ok
+}
+
+func (self *BaseType[T]) SuperTypes() iter.Seq[Type] {
+	return func(yield func(Type) bool) {
+		for t, _ := range self.superTypes {
+			if !yield(t) {
+				return
+			}
+		}
+	}
 }
 
 func (self *BaseType[T]) Write(v Value, out io.Writer, vm *VM) error {
