@@ -33,7 +33,7 @@ func (self *Value) Emit(sloc Sloc, in *Forms, vm *VM) error {
 }
 
 func (self *Value) Isa(superType Type) bool {
-	return self.Type.SubtypeOf(superType)
+	return self.Type == superType || self.Type.SubtypeOf(superType)
 }
 
 func Cast[T any](v Value, t DataType[T]) T {
