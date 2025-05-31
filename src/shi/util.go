@@ -1,16 +1,17 @@
 package shi
 
 import (
-	"bufio"
+	"fmt"
+	"io"
 	"unique"
 )
 
-func DumpStack(stack Values, out *bufio.Writer, vm *VM) error {
-	out.WriteRune('[')
+func DumpStack(stack Values, out io.Writer, vm *VM) error {
+	fmt.Fprint(out, "[")
 
 	for i, v := range stack.Items {
 		if i > 0 {
-			if _, err := out.WriteRune(' '); err != nil {
+			if _, err := fmt.Fprint(out, " "); err != nil {
 				return err
 			}
 			
@@ -21,7 +22,7 @@ func DumpStack(stack Values, out *bufio.Writer, vm *VM) error {
 		}
 	}
 	
-	if _, err := out.WriteRune(']'); err != nil {
+	if _, err := fmt.Fprint(out, "]"); err != nil {
 		return err
 	}
 

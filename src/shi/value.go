@@ -1,8 +1,8 @@
 package shi
 
 import (
-	"bufio"
 	"fmt"
+	"io"
 )
 
 type Value struct {
@@ -20,7 +20,7 @@ func (self *Value) Init(t Type, d any) *Value {
 	return self
 }
 
-func (self Value) Dump(out *bufio.Writer, vm *VM) error {
+func (self Value) Dump(out io.Writer, vm *VM) error {
 	return self.Type.Dump(self, out, vm)
 }
 

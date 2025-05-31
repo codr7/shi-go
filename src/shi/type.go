@@ -1,16 +1,17 @@
 package shi
 
 import (
-	"bufio"
 	"fmt"
+	"io"
 )
 
 type Type interface {
-	Dump(Value, *bufio.Writer, *VM) error
+	Dump(Value, io.Writer, *VM) error
 	Dup(Value, *VM) Value
 	Emit(Value, Sloc, *Forms, *VM) error
 	Name() Sym
-	Write(Value, *bufio.Writer, *VM) error
+	String() string
+	Write(Value, io.Writer, *VM) error
 }
 
 type DataType[T any] interface {
@@ -26,8 +27,8 @@ func (self *BaseType[T]) Init(name Sym) {
 	self.name = name
 }
 
-func (_ BaseType[T]) Dump(v Value, out *bufio.Writer, vm *VM) error {
-	_, err := fmt.Fprintf(out, "%v", v.Data)
+func (_ BaseType[T]) Dump(v Value, out io.Writer, vm *VM) error {
+	_, err := fmt.Fprint(out, v.Data)
 	return err
 }
 
@@ -39,7 +40,11 @@ func (self BaseType[T]) Name() Sym {
 	return self.name
 }
 
-func (self BaseType[T]) Write(v Value, out *bufio.Writer, vm *VM) error {
+func (self BaseType[T]) String() string {
+	return self.name.Value()
+}
+
+func (self BaseType[T]) Write(v Value, out io.Writer, vm *VM) error {
 	return self.Dump(v, out, vm)
 }
 

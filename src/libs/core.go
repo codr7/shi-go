@@ -23,7 +23,6 @@ func (self *TCore) Init(name shi.Sym, parentLib shi.Lib) {
 	BindType(self, &core.Meta)
 	BindType(self, &core.Method)
 	BindType(self, &core.Nil)
-	BindType(self, &core.Sym)
 
 	self.Bind(shi.S("T"), core.T)
 	self.Bind(shi.S("F"), core.F)

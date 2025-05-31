@@ -46,7 +46,7 @@ func Repl(vm *shi.VM) {
 					return
 				} else {
 					lb.WriteRune(c)
-					t.Out().WriteRune(c)
+					t.Buffer.WriteRune(c)
 					t.Flush()
 				}
 			} else {
@@ -76,7 +76,7 @@ func Repl(vm *shi.VM) {
 		
 	DONE:
 		t.Br()
-		shi.DumpStack(stack, t.Out(), vm)
+		shi.DumpStack(stack, &t.Buffer, vm)
 		t.Br().Br().Flush()
 	}
 }

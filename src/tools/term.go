@@ -1,7 +1,6 @@
 package tools
 
 import (
-	"bufio"
 	"bytes"
 	"fmt"
 	"log"
@@ -22,7 +21,6 @@ type Term struct {
 	height int
 	inFile *os.File
 	lineBreak string
-	out *bufio.Writer
 	outFile *os.File
 	state *t.State
 	width int
@@ -45,32 +43,30 @@ func (self *Term) Init(in *os.File, out *os.File) *Term {
 		log.Fatal(err)
 	}
 
-	self.out = bufio.NewWriter(&self.Buffer)
 	self.lineBreak = "\r\n"
 	return self
 }
 
 func (self *Term) Backspace() *Term {
-	self.out.WriteString("\b \b")
+	self.Buffer.WriteString("\b \b")
 	return self
 }
 
 func (self *Term) Br() *Term {
-	self.out.WriteString(self.lineBreak)
+	self.Buffer.WriteString(self.lineBreak)
 	return self
 }
 
 func (self *Term) Ctrl(args...any) {
-        self.out.WriteRune(rune(27));
-        self.out.WriteRune('[');
+        self.Buffer.WriteRune(rune(27));
+        self.Buffer.WriteRune('[');
 
 	for _, a := range args {
-		fmt.Fprint(self.out, a)
+		fmt.Fprint(&self.Buffer, a)
 	}
 }
 
 func (self *Term) Flush() *Term {
-	self.out.Flush()
 	self.outFile.WriteString(self.Buffer.String())
 	self.Buffer.Reset()
 	return self
@@ -100,17 +96,13 @@ func (self Term) Height() int {
 	return self.height
 }
 
-func (self Term) Out() *bufio.Writer {
-	return self.out
-}
-
 func (self *Term) Printf(spec string, values...any) *Term {
-	fmt.Fprintf(self.out, spec, values...)
+	fmt.Fprintf(&self.Buffer, spec, values...)
 	return self
 }
 
 func (self *Term) Println(values...any) *Term {
-	fmt.Fprintln(self.out, values...)
+	fmt.Fprintln(&self.Buffer, values...)
 	return self
 }
 

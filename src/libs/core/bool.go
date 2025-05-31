@@ -1,7 +1,8 @@
 package core
 
 import (
-	"bufio"
+	"fmt"
+	"io"
 	"shi/src/ops"
 	"shi/src/shi"
 )
@@ -20,13 +21,13 @@ func init() {
 	F.Init(&Bool, false)
 }
 
-func (self TBool) Dump(v shi.Value, out *bufio.Writer, vm *shi.VM) error {
-	if v.Data.(bool) {
-		_, err := out.WriteRune('T')
+func (self *TBool) Dump(v shi.Value, out io.Writer, vm *shi.VM) error {
+	if shi.Cast(v, self) {
+		_, err := fmt.Fprint(out, "T")
 		return err
 	}
 	
-	_, err := out.WriteRune('F')
+	_, err := fmt.Fprint(out, "F")
 	return err
 }
 
@@ -35,7 +36,7 @@ func (_ TBool) Emit(value shi.Value, sloc shi.Sloc, in *shi.Forms, vm *shi.VM) e
 	return nil
 }
 
-func (self TBool) Write(v shi.Value, out *bufio.Writer, vm *shi.VM) error {
+func (self TBool) Write(v shi.Value, out io.Writer, vm *shi.VM) error {
 	return self.Dump(v, out, vm)
 }
 
