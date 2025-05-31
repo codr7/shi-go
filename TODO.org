@@ -1,5 +1,5 @@
 * check arg types in call op
-** add Value.Isa()/Type.SubtypeOf()
+** use Isa()
 
 * add - method
 

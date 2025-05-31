@@ -20,16 +20,20 @@ func (self *Value) Init(t Type, d any) *Value {
 	return self
 }
 
-func (self Value) Dump(out io.Writer, vm *VM) error {
-	return self.Type.Dump(self, out, vm)
+func (self *Value) Dump(out io.Writer, vm *VM) error {
+	return self.Type.Dump(*self, out, vm)
 }
 
-func (self Value) Dup(vm *VM) Value {
-	return self.Type.Dup(self, vm)
+func (self *Value) Dup(vm *VM) Value {
+	return self.Type.Dup(*self, vm)
 }
 
-func (self Value) Emit(sloc Sloc, in *Forms, vm *VM) error {
-	return self.Type.Emit(self, sloc, in, vm)
+func (self *Value) Emit(sloc Sloc, in *Forms, vm *VM) error {
+	return self.Type.Emit(*self, sloc, in, vm)
+}
+
+func (self *Value) Isa(superType Type) bool {
+	return self.Type.SubtypeOf(superType)
 }
 
 func Cast[T any](v Value, t DataType[T]) T {
