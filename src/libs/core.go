@@ -1,6 +1,7 @@
 package libs
 
 import (
+	"shi/src/forms"
 	"shi/src/ops"
 	"shi/src/shi"
 	"shi/src/libs/core"
@@ -75,7 +76,21 @@ func (self *TCore) Init(name shi.Sym, parentLib shi.Lib) {
 				return err
 			}
 
-			branchEnd.PC = vm.EmitPC() 
+			if f, ok := in.PeekFront().(*forms.TId); ok && f.Name() == shi.S("else") {
+				in.PopFront()
+				elseEnd := shi.NewLabel()
+				vm.Emit(ops.Goto(elseEnd))
+				branchEnd.PC = vm.EmitPC()
+
+				if err := in.PopFront().Emit(in, vm); err != nil {
+					return err
+				}
+
+				elseEnd.PC = vm.EmitPC()
+			} else {
+				branchEnd.PC = vm.EmitPC()
+			}
+			
 			return nil
 		})
 }

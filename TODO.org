@@ -1,3 +1,2 @@
-* add optional else to if-macro
 * add ScriptMethod
 * add method macro
