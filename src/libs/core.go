@@ -24,11 +24,9 @@ func (self *TCore) Init(name shi.Sym, parentLib shi.Lib) {
 	BindType(self, &core.Macro)
 	BindType(self, &core.Meta)
 	BindType(self, &core.Method)
-	BindType(self, &core.Nil)
 
 	self.Bind(shi.S("T"), core.T)
 	self.Bind(shi.S("F"), core.F)
-	self.Bind(shi.S("N"), core.N)
 
 	BindMethod(self, shi.S("+"),
 		shi.MethodArgs{}.
