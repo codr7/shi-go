@@ -17,7 +17,7 @@ func init() {
 	N.Init(&Nil, nil)
 }
 
-func (_ TNil) Emit(value shi.Value, sloc shi.Sloc, in *shi.Forms, vm *shi.VM) error {
+func (_ *TNil) Emit(value shi.Value, sloc shi.Sloc, in *shi.Forms, vm *shi.VM) error {
 	vm.Emit(ops.Push(value))
 	return nil
 

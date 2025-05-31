@@ -21,11 +21,11 @@ func (self *Literal) Init(sloc shi.Sloc, value shi.Value) *Literal {
 	return self
 }
 
-func (self Literal) Emit(in *shi.Forms, vm *shi.VM) error {
+func (self *Literal) Emit(in *shi.Forms, vm *shi.VM) error {
 	vm.Emit(ops.Push(self.value))
 	return nil
 }
 
-func (self Literal) Dump(out *bufio.Writer, vm *shi.VM) error {
+func (self *Literal) Dump(out *bufio.Writer, vm *shi.VM) error {
 	return self.value.Dump(out, vm)
 }

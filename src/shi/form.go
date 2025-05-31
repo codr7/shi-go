@@ -20,6 +20,6 @@ func (self *BaseForm) Init(sloc Sloc) {
 	self.sloc = sloc
 }
 
-func (self BaseForm) Sloc() Sloc {
+func (self *BaseForm) Sloc() Sloc {
 	return self.sloc
 }

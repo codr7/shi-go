@@ -26,7 +26,7 @@ func (self *BaseLib) Init(name Sym, parentLib Lib) {
 	self.bindings = make(map[Sym]Value)
 }
 
-func (self BaseLib) All() iter.Seq2[Sym, Value] {
+func (self *BaseLib) All() iter.Seq2[Sym, Value] {
 	return func(yield func(Sym, Value) bool) {
 		for k, v := range self.bindings {
 			if !yield(k, v) {

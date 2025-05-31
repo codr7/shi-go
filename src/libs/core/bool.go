@@ -31,12 +31,12 @@ func (self *TBool) Dump(v shi.Value, out io.Writer, vm *shi.VM) error {
 	return err
 }
 
-func (_ TBool) Emit(value shi.Value, sloc shi.Sloc, in *shi.Forms, vm *shi.VM) error {
+func (_ *TBool) Emit(value shi.Value, sloc shi.Sloc, in *shi.Forms, vm *shi.VM) error {
 	vm.Emit(ops.Push(value))
 	return nil
 }
 
-func (self TBool) Write(v shi.Value, out io.Writer, vm *shi.VM) error {
+func (self *TBool) Write(v shi.Value, out io.Writer, vm *shi.VM) error {
 	return self.Dump(v, out, vm)
 }
 

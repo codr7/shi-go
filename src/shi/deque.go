@@ -18,7 +18,7 @@ func (self *Deque[T]) Init(items...T) *Deque[T] {
 	return self
 }
 
-func (self Deque[T]) All() iter.Seq[T] {
+func (self *Deque[T]) All() iter.Seq[T] {
 	return func(yield func(T) bool) {
 		for _, v := range self.Items {
 			if !yield(v) {
@@ -36,15 +36,15 @@ func (self *Deque[T]) Insert(i int, items...T) {
 	self.Items = slices.Insert(self.Items, i, items...);
 }
 
-func (self Deque[T]) Len() int {
+func (self *Deque[T]) Len() int {
 	return len(self.Items)
 }
 
-func (self Deque[T]) PeekFront() T {
+func (self *Deque[T]) PeekFront() T {
 	return self.Items[0]
 }
 
-func (self Deque[T]) PeekBack() *T {
+func (self *Deque[T]) PeekBack() *T {
 	return &self.Items[len(self.Items)-1]
 }
 

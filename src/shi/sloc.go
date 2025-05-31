@@ -20,7 +20,7 @@ func (self *Sloc) Init(source string, line, column int) *Sloc {
 	return self
 }
 
-func (self Sloc) Line() int {
+func (self *Sloc) Line() int {
 	return self.line
 }
 
@@ -33,7 +33,7 @@ func (self *Sloc) Step(c rune) {
 	}
 }
 
-func (self Sloc) String() string {
+func (self *Sloc) String() string {
 	return fmt.Sprintf("'%v' at line %v, column %v",
 		self.source, self.line, self.column)
 }

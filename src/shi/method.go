@@ -27,11 +27,11 @@ func (self *BaseMethod) Init(name Sym, args []MethodArg) {
 	self.args = args
 }
 
-func (self BaseMethod) Args() []MethodArg {
+func (self *BaseMethod) Args() []MethodArg {
 	return self.args
 }
 
-func (self BaseMethod) Name() Sym {
+func (self *BaseMethod) Name() Sym {
 	return self.name
 }
 
@@ -47,6 +47,6 @@ func (self *HostMethod) Init(name Sym, args []MethodArg, body HostMethodBody) {
 	self.body = body
 }
 
-func (self HostMethod) Call(sloc Sloc, pc PC, stack *Values, vm *VM) (PC, error) {
+func (self *HostMethod) Call(sloc Sloc, pc PC, stack *Values, vm *VM) (PC, error) {
 	return pc, self.body(sloc, stack, vm)
 }

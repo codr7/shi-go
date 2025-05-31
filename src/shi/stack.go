@@ -4,7 +4,7 @@ type Stack[T any] struct {
 	Deque[T]
 }
 
-func (self Stack[T]) Peek() *T {
+func (self *Stack[T]) Peek() *T {
 	return self.PeekBack()
 }
 

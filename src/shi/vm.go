@@ -52,7 +52,7 @@ func (self *VM) Emit(op Op) int {
 	return result
 }
 
-func (self VM) EmitPC() PC {
+func (self *VM) EmitPC() PC {
 	return self.ops.Len()
 }
 

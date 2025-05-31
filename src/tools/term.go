@@ -72,7 +72,7 @@ func (self *Term) Flush() *Term {
 	return self
 }
 
-func (self Term) GetChar() ([]rune, error) {
+func (self *Term) GetChar() ([]rune, error) {
 	bs := make([]byte, 64)
 	readBytes, err := os.Stdin.Read(bs)
 
@@ -92,7 +92,7 @@ func (self Term) GetChar() ([]rune, error) {
 	return out, nil
 }
 
-func (self Term) Height() int {
+func (self *Term) Height() int {
 	return self.height
 }
 
@@ -110,6 +110,6 @@ func (self *Term) Restore() {
 	t.Restore(self.fd, self.state)
 }
 
-func (self Term) Width() int {
+func (self *Term) Width() int {
 	return self.width
 }

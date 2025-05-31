@@ -43,12 +43,12 @@ func (self *BSet[K, V]) Add(v V, force bool) bool {
 	return true
 }
 
-func (self BSet[K, V]) Find(k K) *V {
+func (self *BSet[K, V]) Find(k K) *V {
 	_, v := self.IndexOf(k)
 	return v
 }
 
-func (self BSet[K, V]) IndexOf(k K) (int, *V) {
+func (self *BSet[K, V]) IndexOf(k K) (int, *V) {
 	min, max := 0, len(self.Items)
 
 	for min < max {

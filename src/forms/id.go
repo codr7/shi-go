@@ -32,7 +32,7 @@ func (self *Id) Emit(in *shi.Forms, vm *shi.VM) error {
 	return v.Emit(self.Sloc(), in, vm)
 }
 
-func (self Id) Dump(out *bufio.Writer, vm *shi.VM) error {
+func (self *Id) Dump(out *bufio.Writer, vm *shi.VM) error {
 	_, err := out.WriteString(self.name.Value())
 	return err
 }
