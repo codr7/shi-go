@@ -38,4 +38,26 @@ func (self *TCore) Init(name shi.Sym, parentLib shi.Lib) {
 			x.Data = shi.Cast(*x, &core.Int) + y
 			return nil
 		})
+
+	BindMethod(self, shi.S("-"),
+		shi.MethodArgs{}.
+			Add(shi.S("x"), &core.Int).
+			Add(shi.S("y"), &core.Int),
+		func (sloc shi.Sloc, stack *shi.Values, vm *shi.VM) error {
+			y := shi.Cast(stack.Pop(), &core.Int)
+			x := stack.Peek()
+			x.Data = shi.Cast(*x, &core.Int) - y
+			return nil
+		})
+
+	BindMethod(self, shi.S("<"),
+		shi.MethodArgs{}.
+			Add(shi.S("x"), &core.Int).
+			Add(shi.S("y"), &core.Int),
+		func (sloc shi.Sloc, stack *shi.Values, vm *shi.VM) error {
+			y := shi.Cast(stack.Pop(), &core.Int)
+			x := stack.Peek()
+			x.Init(&core.Bool, shi.Cast(*x, &core.Int) < y)
+			return nil
+		})
 }

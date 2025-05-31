@@ -1,10 +1,6 @@
 * check arg types in call op
 ** use Isa()
 
-* add - method
-
-* add < method
-
 * add macros like methods
 ** HostMacro
 
