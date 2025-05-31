@@ -3,15 +3,15 @@ package ops
 import "shi/src/shi"
 
 type TGoto struct {
-	pc shi.Register
+	target *shi.Label
 }
 
-func Goto(pc shi.PC) *TGoto {
-	return &TGoto{pc: pc}
+func Goto(target *shi.Label) *TGoto {
+	return &TGoto{target: target}
 }
 
 func (self *TGoto) Compile(vm *shi.VM, pc shi.PC) shi.OpEval {
 	return func(stack *shi.Values) (shi.PC, error) {
-		return self.pc, nil
+		return self.target.PC, nil
 	}
 }
