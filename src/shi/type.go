@@ -5,7 +5,7 @@ import (
 	"io"
 )
 
-type SuperTypes = map[Sym]bool
+type SuperTypes = map[Type]bool
 
 type Type interface {
 	AddSuperTypes(SuperTypes)
@@ -33,6 +33,7 @@ func (self *BaseType[T]) Init(name Sym, superTypes...Type) {
 	self.superTypes = make(SuperTypes)
 
 	for _, t := range superTypes {
+		self.superTypes[t] = true
 		t.AddSuperTypes(self.superTypes)
 	}
 }
@@ -41,8 +42,6 @@ func (self *BaseType[T]) AddSuperTypes(out SuperTypes) {
 	for t, _ := range self.superTypes {
 		out[t] = true
 	}
-
-	out[self.name] = true
 }
 
 func (_ *BaseType[T]) Dump(v Value, out io.Writer, vm *VM) error {
@@ -63,7 +62,7 @@ func (self *BaseType[T]) String() string {
 }
 
 func (self *BaseType[T]) SubtypeOf(other Type) bool {
-	_, ok := self.superTypes[other.Name()]
+	_, ok := self.superTypes[other]
 	return ok
 }
 

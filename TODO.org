@@ -32,3 +32,30 @@ if T (let foo + 35 7 foo) else 0
 			} else {
 				t.Printf("%v$ ", wd).Flush()
 			}
+
+			
+func backoff(ctx context.Context) error {
+	delays := []time.Duration{
+		1 * time.Second, 2 * time.Second,
+		4 * time.Second, 8 * time.Second,
+		16 * time.Second, 32 * time.Second,
+		60 * time.Second, 60 * time.Second,
+		60 * time.Second, 60 * time.Second,
+	}
+
+	for _, delay := range delays {
+		err := request(ctx)
+		if err == nil {
+			return nil
+		}
+
+		delay = multiplyDuration(delay, 0.75 + rand.Float64()*0.5) // ±25%
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case <-time.After(delay):
+		}
+	}
+
+	return fmt.Errorf("failed after %d attempts", len(delays))
+}

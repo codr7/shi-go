@@ -20,5 +20,4 @@ func init() {
 func (_ *TNil) Emit(value shi.Value, sloc shi.Sloc, in *shi.Forms, vm *shi.VM) error {
 	vm.Emit(ops.Push(value))
 	return nil
-
 }
