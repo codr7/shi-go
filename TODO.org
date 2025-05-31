@@ -1,3 +1,8 @@
+* drop term out
+
+* check arg types in call op
+** add Value.Isa()/Type.SubtypeOf()
+
 * add - method
 
 * add < method
