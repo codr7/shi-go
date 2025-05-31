@@ -33,7 +33,7 @@ func (self *Sloc) Step(c rune) {
 	}
 }
 
-func (self *Sloc) String() string {
+func (self Sloc) String() string {
 	return fmt.Sprintf("'%v' at line %v, column %v",
 		self.source, self.line, self.column)
 }

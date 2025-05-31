@@ -26,6 +26,16 @@ func NewEmitError(sloc Sloc, spec string, args...any) *EmitError {
 	return e
 }
 
+type EvalError struct {
+	BaseError
+}
+
+func NewEvalError(sloc Sloc, spec string, args...any) *EvalError {
+	e := new(EvalError)
+	e.Init("Eval Error in %v: " + spec, append([]any{sloc}, args...)...)
+	return e
+}
+
 type ReadError struct {
 	BaseError
 }
