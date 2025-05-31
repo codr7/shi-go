@@ -6,26 +6,26 @@ import (
 	"shi/src/shi"
 )
 
-type Literal struct {
+type TLiteral struct {
 	shi.BaseForm
 	value shi.Value
 }
 
-func NewLiteral(sloc shi.Sloc, value shi.Value) *Literal {
-	return new(Literal).Init(sloc, value)
+func Literal(sloc shi.Sloc, value shi.Value) *TLiteral {
+	return new(TLiteral).Init(sloc, value)
 }
 
-func (self *Literal) Init(sloc shi.Sloc, value shi.Value) *Literal {
+func (self *TLiteral) Init(sloc shi.Sloc, value shi.Value) *TLiteral {
 	self.BaseForm.Init(sloc)
 	self.value = value
 	return self
 }
 
-func (self *Literal) Emit(in *shi.Forms, vm *shi.VM) error {
+func (self *TLiteral) Emit(in *shi.Forms, vm *shi.VM) error {
 	vm.Emit(ops.Push(self.value))
 	return nil
 }
 
-func (self *Literal) Dump(out *bufio.Writer, vm *shi.VM) error {
+func (self *TLiteral) Dump(out *bufio.Writer, vm *shi.VM) error {
 	return self.value.Dump(out, vm)
 }

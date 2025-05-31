@@ -5,29 +5,29 @@ import (
 	"shi/src/shi"
 )
 
-type Scope struct {
+type TScope struct {
 	shi.BaseForm
 	forms shi.Forms
 }
 
-func NewScope(sloc shi.Sloc, forms shi.Forms) *Scope {
-	return new(Scope).Init(sloc, forms)
+func Scope(sloc shi.Sloc, forms shi.Forms) *TScope {
+	return new(TScope).Init(sloc, forms)
 }
 
-func (self *Scope) Init(sloc shi.Sloc, forms shi.Forms) *Scope {
+func (self *TScope) Init(sloc shi.Sloc, forms shi.Forms) *TScope {
 	self.BaseForm.Init(sloc)
 	self.forms = forms
 	return self
 }
 
-func (self *Scope) Emit(in *shi.Forms, vm *shi.VM) error {
+func (self *TScope) Emit(in *shi.Forms, vm *shi.VM) error {
 	fs := self.forms
 	return vm.WithLib(nil, func () error {
 		return EmitAll(&fs, vm)
 	})
 }
 
-func (self *Scope) Dump(out *bufio.Writer, vm *shi.VM) error {
+func (self *TScope) Dump(out *bufio.Writer, vm *shi.VM) error {
 	if _, err := out.WriteRune('('); err != nil {
 		return err
 	}

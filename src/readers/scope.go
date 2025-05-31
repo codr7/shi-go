@@ -56,6 +56,6 @@ func (self TScope) Read(vm *shi.VM, in *bufio.Reader, out *shi.Forms, sloc *shi.
 		}
 	}
 
-	out.PushBack(forms.NewScope(formSloc, buf))
+	out.PushBack(forms.Scope(formSloc, buf))
 	return true, nil
 }

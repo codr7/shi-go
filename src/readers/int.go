@@ -38,6 +38,6 @@ func (self TInt) Read(vm *shi.VM, in *bufio.Reader, out *shi.Forms, sloc *shi.Sl
 		sloc.Step(c)
 	}
 
-	out.PushBack(forms.NewLiteral(formSloc, shi.V(&core.Int, v)))
+	out.PushBack(forms.Literal(formSloc, shi.V(&core.Int, v)))
 	return true, nil
 }
