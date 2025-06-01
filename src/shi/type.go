@@ -7,7 +7,7 @@ import (
 )
 
 type Type interface {
-	BoolValue(Value) bool
+	AsBool(Value) bool
 	Dump(Value, io.Writer, *VM) error
 	Dup(Value, *VM) Value
 	Emit(Value, Sloc, *Forms, *VM) error
@@ -41,7 +41,7 @@ func (self *BaseType[T]) Init(name Sym, superTypes...Type) {
 	}
 }
 
-func (_ *BaseType[T]) BoolValue(_ Value) bool {
+func (_ *BaseType[T]) AsBool(_ Value) bool {
 	return true
 }
 

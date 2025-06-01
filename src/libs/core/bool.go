@@ -21,7 +21,7 @@ func init() {
 	F.Init(&Bool, false)
 }
 
-func (self *TBool) BoolValue(v shi.Value) bool {
+func (self *TBool) AsBool(v shi.Value) bool {
 	return shi.Cast(v, self)
 }
 

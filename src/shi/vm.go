@@ -26,7 +26,7 @@ func (self *VM) Init(reader Reader) *VM {
 	return self
 }
 
-func (self *VM) AllocRegisters(n int) Register {
+func (self *VM) Alloc(n int) Register {
 	result := self.Registers.Len()
 
 	for i := 0; i < n; i++ {
@@ -46,10 +46,8 @@ func (self *VM) CurrentLib() Lib {
 	return self.currentLib
 }
 
-func (self *VM) Emit(op Op) int {
-	result := self.ops.Len()
+func (self *VM) Emit(op Op) {
 	self.ops.Push(op)
-	return result
 }
 
 func (self *VM) EmitPC() PC {
@@ -58,17 +56,17 @@ func (self *VM) EmitPC() PC {
 
 func (self *VM) Eval(from, to PC, stack *Values) error {
 	if to == -1 {
-		to = self.ops.Len()
+		to = self.ops.Len() - 1
 	}
 
-	if self.opEvals.Len() < to {
+	if self.opEvals.Len() < self.ops.Len() {
 		self.Compile(self.opEvals.Len())
 	}
 
 	var err error;
 	
 	for pc := from;
-	err == nil && pc < to;
+	err == nil && pc <= to;
 	pc, err = self.opEvals.Items[pc](stack) {
 		//Do nothing
 	}

@@ -15,7 +15,7 @@ func init() {
 	Int.Init(shi.S("Int"))
 }
 
-func (self *TInt) BoolValue(v shi.Value) bool {
+func (self *TInt) AsBool(v shi.Value) bool {
 	return shi.Cast(v, self) != 0
 }
 

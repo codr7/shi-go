@@ -20,8 +20,8 @@ func (self *Value) Init(t Type, d any) *Value {
 	return self
 }
 
-func (self Value) BoolValue() bool {
-	return self.Type.BoolValue(self)
+func (self Value) AsBool() bool {
+	return self.Type.AsBool(self)
 }
 
 func (self Value) Dump(out io.Writer, vm *VM) error {
