@@ -1,7 +1,7 @@
 package shi
 
-type OpEval func (stack *Values) (PC, error)
+type Eval func (stack *Values) (PC, error)
 
-type Op interface {
-	Compile(vm *VM, pc PC) OpEval
+type Operation interface {
+	Compile(vm *VM, pc PC) Eval
 }

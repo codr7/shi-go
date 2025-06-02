@@ -15,8 +15,8 @@ type VM struct {
 	userLibrary BaseLibrary
 
 	reader Reader
-	ops Stack[Op]
-	opEvals Stack[OpEval]
+	operations Stack[Operation]
+	code Stack[Eval]
 }
 
 func (self *VM) Init(reader Reader) *VM {
@@ -37,8 +37,8 @@ func (self *VM) Allocate(n int) Register {
 }
 
 func (self *VM) Compile(from PC) {
-	for pc := from; pc < self.ops.Len(); pc++ {
-		self.opEvals.Push(self.ops.Items[pc].Compile(self, pc))
+	for pc := from; pc < self.operations.Len(); pc++ {
+		self.code.Push(self.operations.Items[pc].Compile(self, pc))
 	}
 }
 
@@ -46,28 +46,28 @@ func (self *VM) CurrentLibrary() Library {
 	return self.currentLibrary
 }
 
-func (self *VM) Emit(op Op) {
-	self.ops.Push(op)
+func (self *VM) Emit(operation Operation) {
+	self.operations.Push(operation)
 }
 
 func (self *VM) EmitPC() PC {
-	return self.ops.Len()
+	return self.operations.Len()
 }
 
 func (self *VM) Eval(from, to PC, stack *Values) error {
 	if to == -1 {
-		to = self.ops.Len() - 1
+		to = self.operations.Len() - 1
 	}
 
-	if self.opEvals.Len() < self.ops.Len() {
-		self.Compile(self.opEvals.Len())
+	if self.code.Len() < self.operations.Len() {
+		self.Compile(self.code.Len())
 	}
 
 	var err error;
 	
 	for pc := from;
 	err == nil && pc <= to;
-	pc, err = self.opEvals.Items[pc](stack) {
+	pc, err = self.code.Items[pc](stack) {
 		//Do nothing
 	}
 

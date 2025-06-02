@@ -1,7 +1,7 @@
 package core
 
 import (
-	"shi/src/ops"
+	"shi/src/operations"
 	"shi/src/shi"
 )
 
@@ -25,6 +25,6 @@ func (self *TMethod) Emit(value shi.Value, sloc shi.Sloc, in *shi.Forms, vm *shi
 		}
 	}
 
-	vm.Emit(ops.Call(sloc, m))
+	vm.Emit(operations.Call(sloc, m))
 	return nil
 }

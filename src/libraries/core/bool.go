@@ -3,7 +3,7 @@ package core
 import (
 	"fmt"
 	"io"
-	"shi/src/ops"
+	"shi/src/operations"
 	"shi/src/shi"
 )
 
@@ -36,7 +36,7 @@ func (self *TBool) Dump(v shi.Value, out io.Writer, vm *shi.VM) error {
 }
 
 func (_ *TBool) Emit(value shi.Value, sloc shi.Sloc, in *shi.Forms, vm *shi.VM) error {
-	vm.Emit(ops.Push(value))
+	vm.Emit(operations.Push(value))
 	return nil
 }
 

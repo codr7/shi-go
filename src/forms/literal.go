@@ -2,7 +2,7 @@ package forms
 
 import (
 	"bufio"
-	"shi/src/ops"
+	"shi/src/operations"
 	"shi/src/shi"
 )
 
@@ -22,7 +22,7 @@ func (self *TLiteral) Init(sloc shi.Sloc, value shi.Value) *TLiteral {
 }
 
 func (self *TLiteral) Emit(in *shi.Forms, vm *shi.VM) error {
-	vm.Emit(ops.Push(self.value))
+	vm.Emit(operations.Push(self.value))
 	return nil
 }
 

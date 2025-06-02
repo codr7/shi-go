@@ -1,7 +1,7 @@
 package core
 
 import (
-	"shi/src/ops"
+	"shi/src/operations"
 	"shi/src/shi"
 )
 
@@ -16,6 +16,6 @@ func init() {
 }
 
 func (_ *TMeta) Emit(value shi.Value, sloc shi.Sloc, in *shi.Forms, vm *shi.VM) error {
-	vm.Emit(ops.Push(value))
+	vm.Emit(operations.Push(value))
 	return nil
 }

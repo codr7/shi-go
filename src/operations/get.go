@@ -1,4 +1,4 @@
-package ops
+package operations
 
 import (
 	"shi/src/shi"
@@ -12,7 +12,7 @@ func Get(source shi.Register) *TGet {
 	return &TGet{source: source}
 }
 
-func (self *TGet) Compile(vm *shi.VM, pc shi.PC) shi.OpEval {
+func (self *TGet) Compile(vm *shi.VM, pc shi.PC) shi.Eval {
 	return func (stack *shi.Values) (shi.PC, error) {
 		stack.Push(*vm.Registers.Items[self.source])
 		return pc+1, nil

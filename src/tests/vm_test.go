@@ -5,7 +5,7 @@ import (
 
 	"shi/src/shi"
 	"shi/src/libraries/core"
-	"shi/src/ops"
+	"shi/src/operations"
 	"shi/src/readers"
 )
 
@@ -21,7 +21,7 @@ func TestGet(t *testing.T) {
 	vm.Registers.Items[r] = &v
 
 	pc := vm.EmitPC()
-	vm.Emit(ops.Get(r))
+	vm.Emit(operations.Get(r))
 	var stack shi.Values
 	vm.Eval(pc, -1, &stack)
 
@@ -34,7 +34,7 @@ func TestPushValue(t *testing.T) {
 	vm := newVM()
 
 	pc := vm.EmitPC()
-	vm.Emit(ops.Push(shi.V(&core.Int, 42)))
+	vm.Emit(operations.Push(shi.V(&core.Int, 42)))
 	var stack shi.Values
 	vm.Eval(pc, -1, &stack)
 
@@ -50,7 +50,7 @@ func TestPutValue(t *testing.T) {
 	stack.Push(shi.V(&core.Int, 42))
 	r := vm.Allocate(1)
 	pc := vm.EmitPC()
-	vm.Emit(ops.Put(r))
+	vm.Emit(operations.Put(r))
 	vm.Eval(pc, -1, &stack)
 
 	if v := vm.Registers.Items[r].Data; v != 42 {

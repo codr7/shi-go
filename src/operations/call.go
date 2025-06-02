@@ -1,4 +1,4 @@
-package ops
+package operations
 
 import (
 	"shi/src/shi"
@@ -13,7 +13,7 @@ func Call(sloc shi.Sloc, target shi.Method) *TCall {
 	return &TCall{sloc: sloc, target: target}
 }
 
-func (self *TCall) Compile(vm *shi.VM, pc shi.PC) shi.OpEval {
+func (self *TCall) Compile(vm *shi.VM, pc shi.PC) shi.Eval {
 	return func (stack *shi.Values) (shi.PC, error) {
 		as := self.target.Args()
 		al := len(as)

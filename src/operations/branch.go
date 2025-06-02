@@ -1,4 +1,4 @@
-package ops
+package operations
 
 import (
 	"shi/src/shi"
@@ -12,7 +12,7 @@ func Branch(end *shi.Label) *TBranch {
 	return &TBranch{end: end}
 }
 
-func (self *TBranch) Compile(vm *shi.VM, pc shi.PC) shi.OpEval {
+func (self *TBranch) Compile(vm *shi.VM, pc shi.PC) shi.Eval {
 	return func (stack *shi.Values) (shi.PC, error) {
 		if stack.Pop().AsBool() {
 			return pc+1, nil

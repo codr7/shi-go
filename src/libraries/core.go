@@ -2,7 +2,7 @@ package libraries
 
 import (
 	"shi/src/forms"
-	"shi/src/ops"
+	"shi/src/operations"
 	"shi/src/shi"
 	"shi/src/libraries/core"
 )
@@ -70,7 +70,7 @@ func (self *TCore) Init(name shi.Symbol, parentLibrary shi.Library) {
 			}
 
 			branchEnd := shi.NewLabel()
-			vm.Emit(ops.Branch(branchEnd))
+			vm.Emit(operations.Branch(branchEnd))
 			
 			if err := in.PopFront().Emit(in, vm); err != nil {
 				return err
@@ -79,7 +79,7 @@ func (self *TCore) Init(name shi.Symbol, parentLibrary shi.Library) {
 			if f, ok := in.PeekFront().(*forms.TId); ok && f.Name() == shi.S("else") {
 				in.PopFront()
 				elseEnd := shi.NewLabel()
-				vm.Emit(ops.Goto(elseEnd))
+				vm.Emit(operations.Goto(elseEnd))
 				branchEnd.PC = vm.EmitPC()
 
 				if err := in.PopFront().Emit(in, vm); err != nil {
