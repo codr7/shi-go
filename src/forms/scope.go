@@ -22,7 +22,7 @@ func (self *TScope) Init(sloc shi.Sloc, forms shi.Forms) *TScope {
 
 func (self *TScope) Emit(in *shi.Forms, vm *shi.VM) error {
 	fs := self.forms
-	return vm.WithLib(nil, func () error {
+	return vm.WithLibrary(nil, func () error {
 		return EmitAll(&fs, vm)
 	})
 }

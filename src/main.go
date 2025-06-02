@@ -2,7 +2,7 @@ package main
 
 import (
 	"shi/src/shi"
-	"shi/src/libs"
+	"shi/src/libraries"
 	"shi/src/readers"
 	"shi/src/tools"
 )
@@ -10,6 +10,6 @@ import (
 func main() {		
 	var vm shi.VM
 	vm.Init(&readers.Form)
-	vm.CurrentLib().Import(&libs.Core)
+	vm.CurrentLibrary().ImportFrom(&libraries.Core)
 	tools.Repl(&vm)
 }

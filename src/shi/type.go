@@ -12,7 +12,7 @@ type Type interface {
 	Dup(Value, *VM) Value
 	Emit(Value, Sloc, *Forms, *VM) error
 	SubtypeOf(Type) bool
-	SuperTypes() iter.Seq[Type]
+	Parents() iter.Seq[Type]
 	Name() Symbol
 	String() string
 	Write(Value, io.Writer, *VM) error
@@ -25,18 +25,18 @@ type DataType[T any] interface {
 
 type BaseType[T any] struct {
 	name Symbol
-	superTypes map[Type]bool
+	parents map[Type]bool
 }
 
-func (self *BaseType[T]) Init(name Symbol, superTypes...Type) {
+func (self *BaseType[T]) Init(name Symbol, parents...Type) {
 	self.name = name
-	self.superTypes = make(map[Type]bool)
+	self.parents = make(map[Type]bool)
 	
-	for _, t := range superTypes {
-		self.superTypes[t] = true
+	for _, pt := range parents {
+		self.parents[pt] = true
 		
-		for st := range t.SuperTypes() {
-			self.superTypes[st] = true
+		for ppt := range pt.Parents() {
+			self.parents[ppt] = true
 		}
 	}
 }
@@ -63,13 +63,13 @@ func (self *BaseType[T]) String() string {
 }
 
 func (self *BaseType[T]) SubtypeOf(other Type) bool {
-	_, ok := self.superTypes[other]
+	_, ok := self.parents[other]
 	return ok
 }
 
-func (self *BaseType[T]) SuperTypes() iter.Seq[Type] {
+func (self *BaseType[T]) Parents() iter.Seq[Type] {
 	return func(yield func(Type) bool) {
-		for t, _ := range self.superTypes {
+		for t, _ := range self.parents {
 			if !yield(t) {
 				return
 			}

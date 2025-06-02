@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"io"
 	"shi/src/forms"
-	"shi/src/libs/core"
+	"shi/src/libraries/core"
 	"shi/src/shi"
 	"unicode"
 )

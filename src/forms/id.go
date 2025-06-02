@@ -25,7 +25,7 @@ func (self *TId) Name() shi.Symbol {
 }
 
 func (self *TId) Emit(in *shi.Forms, vm *shi.VM) error {
-	v := vm.CurrentLib().Find(self.name)
+	v := vm.CurrentLibrary().Find(self.name)
 
 	if v == nil {
 		return shi.NewEmitError(self.Sloc(),

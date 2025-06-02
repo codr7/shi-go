@@ -1,14 +1,14 @@
-package libs
+package libraries
 
 import (
 	"shi/src/forms"
 	"shi/src/ops"
 	"shi/src/shi"
-	"shi/src/libs/core"
+	"shi/src/libraries/core"
 )
 
 type TCore struct {
-	shi.BaseLib
+	shi.BaseLibrary
 }
 
 var Core TCore
@@ -17,8 +17,8 @@ func init() {
 	Core.Init(shi.S("core"), nil)
 }
 
-func (self *TCore) Init(name shi.Symbol, parentLib shi.Lib) {
-	self.BaseLib.Init(name, nil)
+func (self *TCore) Init(name shi.Symbol, parentLibrary shi.Library) {
+	self.BaseLibrary.Init(name, nil)
 
 	BindType(self, &core.Bool)
 	BindType(self, &core.Int)

@@ -11,8 +11,8 @@ type Values = Stack[Value]
 type VM struct {
 	Registers Stack[*Value]
 
-	currentLib Lib
-	userLib BaseLib
+	currentLibrary Library
+	userLibrary BaseLibrary
 
 	reader Reader
 	ops Stack[Op]
@@ -20,13 +20,13 @@ type VM struct {
 }
 
 func (self *VM) Init(reader Reader) *VM {
-	self.userLib.Init(S("user"), nil)
-	self.currentLib = &self.userLib
+	self.userLibrary.Init(S("user"), nil)
+	self.currentLibrary = &self.userLibrary
 	self.reader = reader
 	return self
 }
 
-func (self *VM) Alloc(n int) Register {
+func (self *VM) Allocate(n int) Register {
 	result := self.Registers.Len()
 
 	for i := 0; i < n; i++ {
@@ -42,8 +42,8 @@ func (self *VM) Compile(from PC) {
 	}
 }
 
-func (self *VM) CurrentLib() Lib {
-	return self.currentLib
+func (self *VM) CurrentLibrary() Library {
+	return self.currentLibrary
 }
 
 func (self *VM) Emit(op Op) {
@@ -90,15 +90,15 @@ func (self *VM) ReadAll(in *bufio.Reader, out *Forms, sloc *Sloc) error {
 	return nil
 }
 
-func (self *VM) WithLib(lib Lib, body func() error) error {
-	prev := self.currentLib
+func (self *VM) WithLibrary(lib Library, body func() error) error {
+	prev := self.currentLibrary
 
 	if lib == nil {
-		lib = new(BaseLib)
-		lib.Init(self.currentLib.Name(), self.currentLib) 
+		lib = new(BaseLibrary)
+		lib.Init(self.currentLibrary.Name(), self.currentLibrary) 
 	}
 	
-	self.currentLib = lib
-	defer func () { self.currentLib = prev }()
+	self.currentLibrary = lib
+	defer func () { self.currentLibrary = prev }()
 	return body()
 }

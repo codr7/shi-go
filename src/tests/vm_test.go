@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"shi/src/shi"
-	"shi/src/libs/core"
+	"shi/src/libraries/core"
 	"shi/src/ops"
 	"shi/src/readers"
 )
@@ -16,7 +16,7 @@ func newVM() *shi.VM {
 func TestGet(t *testing.T) {
 	vm := newVM()
 
-	r := vm.Alloc(1)
+	r := vm.Allocate(1)
 	v := shi.V(&core.Int, 42)
 	vm.Registers.Items[r] = &v
 
@@ -48,7 +48,7 @@ func TestPutValue(t *testing.T) {
 
 	var stack shi.Values
 	stack.Push(shi.V(&core.Int, 42))
-	r := vm.Alloc(1)
+	r := vm.Allocate(1)
 	pc := vm.EmitPC()
 	vm.Emit(ops.Put(r))
 	vm.Eval(pc, -1, &stack)

@@ -5,28 +5,28 @@ import (
 	"iter"
 )
 
-type Lib interface {
+type Library interface {
 	All() iter.Seq2[Symbol, Value]
 	Bind(Symbol, Value)
 	Find(k Symbol) *Value
-	Import(source Lib, keys...Symbol) error
-	Init(name Symbol, parentLib Lib)
+	ImportFrom(source Library, keys...Symbol) error
+	Init(name Symbol, parent Library)
 	Name() Symbol
 }
 
-type BaseLib struct {
+type BaseLibrary struct {
 	name Symbol
-	parentLib Lib
+	parent Library
 	bindings map[Symbol]Value
 }
 
-func (self *BaseLib) Init(name Symbol, parentLib Lib) {
+func (self *BaseLibrary) Init(name Symbol, parent Library) {
 	self.name = name
-	self.parentLib = parentLib
+	self.parent = parent
 	self.bindings = make(map[Symbol]Value)
 }
 
-func (self *BaseLib) All() iter.Seq2[Symbol, Value] {
+func (self *BaseLibrary) All() iter.Seq2[Symbol, Value] {
 	return func(yield func(Symbol, Value) bool) {
 		for k, v := range self.bindings {
 			if !yield(k, v) {
@@ -36,15 +36,18 @@ func (self *BaseLib) All() iter.Seq2[Symbol, Value] {
 	}
 }
 
-func (self *BaseLib) Bind(k Symbol, v Value) {
+func (self *BaseLibrary) Bind(k Symbol, v Value) {
 	self.bindings[k] = v
 }
 
-func (self *BaseLib) Find(k Symbol) *Value {
+func (self *BaseLibrary) Find(k Symbol) *Value {
 	v, ok := self.bindings[k]
 
-	if !ok && self.parentLib != nil {
-		return self.parentLib.Find(k)
+	if !ok && self.parent != nil {
+		if pv := self.parent.Find(k); pv != nil {
+			self.bindings[k] = *pv
+			return pv
+		}
 	}
 
 	if !ok {
@@ -54,7 +57,7 @@ func (self *BaseLib) Find(k Symbol) *Value {
 	return &v
 }
 
-func (self *BaseLib) Import(source Lib, keys...Symbol) error {
+func (self *BaseLibrary) ImportFrom(source Library, keys...Symbol) error {
 	if len(keys) == 0 {
 		for k, v := range source.All() {
 			self.Bind(k, v)
@@ -74,6 +77,6 @@ func (self *BaseLib) Import(source Lib, keys...Symbol) error {
 	return nil
 }
 
-func (self *BaseLib) Name() Symbol {
+func (self *BaseLibrary) Name() Symbol {
 	return self.name
 }
