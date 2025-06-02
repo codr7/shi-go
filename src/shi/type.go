@@ -13,7 +13,7 @@ type Type interface {
 	Emit(Value, Sloc, *Forms, *VM) error
 	SubtypeOf(Type) bool
 	SuperTypes() iter.Seq[Type]
-	Name() Sym
+	Name() Symbol
 	String() string
 	Write(Value, io.Writer, *VM) error
 }
@@ -24,11 +24,11 @@ type DataType[T any] interface {
 }
 
 type BaseType[T any] struct {
-	name Sym
+	name Symbol
 	superTypes map[Type]bool
 }
 
-func (self *BaseType[T]) Init(name Sym, superTypes...Type) {
+func (self *BaseType[T]) Init(name Symbol, superTypes...Type) {
 	self.name = name
 	self.superTypes = make(map[Type]bool)
 	
@@ -54,7 +54,7 @@ func (_ *BaseType[T]) Dup(v Value, vm *VM) Value {
 	return v
 }
 
-func (self *BaseType[T]) Name() Sym {
+func (self *BaseType[T]) Name() Symbol {
 	return self.name
 }
 

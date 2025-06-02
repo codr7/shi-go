@@ -29,8 +29,8 @@ func DumpStack(stack Values, out io.Writer, vm *VM) error {
 	return nil
 }
 
-type Sym = unique.Handle[string]
+type Symbol = unique.Handle[string]
 
-func S(name string) Sym {
+func S(name string) Symbol {
 	return unique.Make(name)
 }

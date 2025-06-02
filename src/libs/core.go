@@ -17,7 +17,7 @@ func init() {
 	Core.Init(shi.S("core"), nil)
 }
 
-func (self *TCore) Init(name shi.Sym, parentLib shi.Lib) {
+func (self *TCore) Init(name shi.Symbol, parentLib shi.Lib) {
 	self.BaseLib.Init(name, nil)
 
 	BindType(self, &core.Bool)

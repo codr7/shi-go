@@ -1,28 +1,28 @@
 package shi
 
 type MethodArg struct {
-	Name Sym
+	Name Symbol
 	Type Type
 }
 
 type MethodArgs []MethodArg
 
-func (self MethodArgs) Add(name Sym, t Type) MethodArgs {
+func (self MethodArgs) Add(name Symbol, t Type) MethodArgs {
 	return append(self, MethodArg{name, t})
 }
 
 type Method interface {
 	Args() []MethodArg
 	Call(Sloc, PC, *Values, *VM) (PC, error)
-	Name() Sym
+	Name() Symbol
 }
 
 type BaseMethod struct {
 	args []MethodArg
-	name Sym
+	name Symbol
 }
 
-func (self *BaseMethod) Init(name Sym, args []MethodArg) {
+func (self *BaseMethod) Init(name Symbol, args []MethodArg) {
 	self.name = name
 	self.args = args
 }
@@ -31,7 +31,7 @@ func (self *BaseMethod) Args() []MethodArg {
 	return self.args
 }
 
-func (self *BaseMethod) Name() Sym {
+func (self *BaseMethod) Name() Symbol {
 	return self.name
 }
 
@@ -42,7 +42,7 @@ type HostMethod struct {
 	body HostMethodBody
 }
 
-func (self *HostMethod) Init(name Sym, args []MethodArg, body HostMethodBody) {
+func (self *HostMethod) Init(name Symbol, args []MethodArg, body HostMethodBody) {
 	self.BaseMethod.Init(name, args)
 	self.body = body
 }

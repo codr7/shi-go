@@ -10,7 +10,7 @@ type Sloc struct {
 }
 
 func NewSloc(source string) *Sloc {
-	return new(Sloc).Init(source, 1, 0)
+	return new(Sloc).Init(source, 1, 1)
 }
 
 func (self *Sloc) Init(source string, line, column int) *Sloc {

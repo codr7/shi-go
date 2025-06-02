@@ -3,15 +3,15 @@ package shi
 type Macro interface {
 	Args() []string
 	Call(Sloc, *Forms, *VM) error
-	Name() Sym
+	Name() Symbol
 }
 
 type BaseMacro struct {
 	args []string
-	name Sym
+	name Symbol
 }
 
-func (self *BaseMacro) Init(name Sym, args []string) {
+func (self *BaseMacro) Init(name Symbol, args []string) {
 	self.name = name
 	self.args = args
 }
@@ -20,7 +20,7 @@ func (self *BaseMacro) Args() []string {
 	return self.args
 }
 
-func (self *BaseMacro) Name() Sym {
+func (self *BaseMacro) Name() Symbol {
 	return self.name
 }
 
@@ -31,7 +31,7 @@ type HostMacro struct {
 	body HostMacroBody
 }
 
-func (self *HostMacro) Init(name Sym, args []string, body HostMacroBody) {
+func (self *HostMacro) Init(name Symbol, args []string, body HostMacroBody) {
 	self.BaseMacro.Init(name, args)
 	self.body = body
 }

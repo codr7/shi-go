@@ -7,20 +7,20 @@ import (
 
 type TId struct {
 	shi.BaseForm
-	name shi.Sym
+	name shi.Symbol
 }
 
-func Id(sloc shi.Sloc, name shi.Sym) *TId {
+func Id(sloc shi.Sloc, name shi.Symbol) *TId {
 	return new(TId).Init(sloc, name)
 }
 
-func (self *TId) Init(sloc shi.Sloc, name shi.Sym) *TId {
+func (self *TId) Init(sloc shi.Sloc, name shi.Symbol) *TId {
 	self.BaseForm.Init(sloc)
 	self.name = name
 	return self
 }
 
-func (self *TId) Name() shi.Sym {
+func (self *TId) Name() shi.Symbol {
 	return self.name
 }
 
