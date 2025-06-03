@@ -44,10 +44,7 @@ func (self *BaseLibrary) Find(k Symbol) *Value {
 	v, ok := self.bindings[k]
 
 	if !ok && self.parent != nil {
-		if pv := self.parent.Find(k); pv != nil {
-			self.bindings[k] = *pv
-			return pv
-		}
+		return self.parent.Find(k)
 	}
 
 	if !ok {
