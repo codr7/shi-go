@@ -50,3 +50,17 @@ func (self *HostMethod) Init(name Symbol, args []MethodArg, body HostMethodBody)
 func (self *HostMethod) Call(sloc Sloc, pc PC, stack *Values, vm *VM) (PC, error) {
 	return pc, self.body(sloc, stack, vm)
 }
+
+type ScriptMethod struct {
+	BaseMethod
+	startPc PC
+}
+
+func (self *ScriptMethod) Init(name Symbol, args []MethodArg, startPc PC) {
+	self.BaseMethod.Init(name, args)
+	self.startPc = startPc 
+}
+
+func (self *ScriptMethod) Call(sloc Sloc, pc PC, stack *Values, vm *VM) (PC, error) {
+	return self.startPc, nil
+}
