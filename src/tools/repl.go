@@ -32,7 +32,7 @@ func Repl(vm *shi.VM) {
 		line := in.Text()
 		
 		if line == "" {
-			pc := vm.EmitPC()
+			pc := vm.EmitPc()
 			var fs shi.Forms
 			
 			if err := vm.ReadAll(bufio.NewReader(&code), &fs, sloc);

@@ -50,7 +50,7 @@ func (self *VM) Emit(operation Operation) {
 	self.operations.Push(operation)
 }
 
-func (self *VM) EmitPC() PC {
+func (self *VM) EmitPc() PC {
 	return self.operations.Len()
 }
 

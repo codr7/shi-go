@@ -1,7 +1,7 @@
 package shi
 
 type Label struct {
-	PC PC
+	Pc PC
 }
 
 func NewLabel() *Label {

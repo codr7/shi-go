@@ -80,15 +80,15 @@ func (self *TCore) Init(name shi.Symbol, parentLibrary shi.Library) {
 				in.PopFront()
 				elseEnd := shi.NewLabel()
 				vm.Emit(operations.Goto(elseEnd))
-				branchEnd.PC = vm.EmitPC()
+				branchEnd.Pc = vm.EmitPc()
 
 				if err := in.PopFront().Emit(in, vm); err != nil {
 					return err
 				}
 
-				elseEnd.PC = vm.EmitPC()
+				elseEnd.Pc = vm.EmitPc()
 			} else {
-				branchEnd.PC = vm.EmitPC()
+				branchEnd.Pc = vm.EmitPc()
 			}
 			
 			return nil

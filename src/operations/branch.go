@@ -18,6 +18,6 @@ func (self *TBranch) Compile(vm *shi.VM, pc shi.PC) shi.Eval {
 			return pc+1, nil
 		}
 
-		return self.end.PC, nil
+		return self.end.Pc, nil
 	}
 }
