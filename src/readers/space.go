@@ -2,8 +2,8 @@ package readers
 
 import (
 	"bufio"
-	"shi/src/shi"
 	"io"
+	"shi/src/shi"
 	"unicode"
 )
 
@@ -14,10 +14,10 @@ var Space TSpace
 
 func (self TSpace) Read(vm *shi.VM, in *bufio.Reader, out *shi.Forms, sloc *shi.Sloc) (bool, error) {
 	found := false
-	
+
 	for {
 		c, _, err := in.ReadRune()
-		
+
 		if err != nil {
 			if err == io.EOF {
 				err = nil

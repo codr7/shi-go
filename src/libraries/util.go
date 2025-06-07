@@ -1,8 +1,8 @@
 package libraries
 
 import (
-	"shi/src/shi"
 	"shi/src/libraries/core"
+	"shi/src/shi"
 )
 
 func BindMacro(lib shi.Library, name shi.Symbol, args []string, body shi.HostMacroBody) {
@@ -10,7 +10,6 @@ func BindMacro(lib shi.Library, name shi.Symbol, args []string, body shi.HostMac
 	m.Init(name, args, body)
 	lib.Bind(name, shi.V(&core.Macro, shi.Macro(m)))
 }
-
 
 func BindMethod(lib shi.Library, name shi.Symbol, args []shi.MethodArg, body shi.HostMethodBody) {
 	m := new(shi.HostMethod)

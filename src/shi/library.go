@@ -9,14 +9,14 @@ type Library interface {
 	All() iter.Seq2[Symbol, Value]
 	Bind(Symbol, Value)
 	Find(k Symbol) *Value
-	ImportFrom(source Library, keys...Symbol) error
+	ImportFrom(source Library, keys ...Symbol) error
 	Init(name Symbol, parent Library)
 	Name() Symbol
 }
 
 type BaseLibrary struct {
-	name Symbol
-	parent Library
+	name     Symbol
+	parent   Library
 	bindings map[Symbol]Value
 }
 
@@ -50,11 +50,11 @@ func (self *BaseLibrary) Find(k Symbol) *Value {
 	if !ok {
 		return nil
 	}
-	
+
 	return &v
 }
 
-func (self *BaseLibrary) ImportFrom(source Library, keys...Symbol) error {
+func (self *BaseLibrary) ImportFrom(source Library, keys ...Symbol) error {
 	if len(keys) == 0 {
 		for k, v := range source.All() {
 			self.Bind(k, v)

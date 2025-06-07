@@ -9,11 +9,11 @@ type Deque[T any] struct {
 	Items []T
 }
 
-func NewDeque[T any](items...T) *Deque[T] {
+func NewDeque[T any](items ...T) *Deque[T] {
 	return new(Deque[T]).Init(items...)
 }
 
-func (self *Deque[T]) Init(items...T) *Deque[T] {
+func (self *Deque[T]) Init(items ...T) *Deque[T] {
 	self.Items = items
 	return self
 }
@@ -29,11 +29,11 @@ func (self *Deque[T]) All() iter.Seq[T] {
 }
 
 func (self *Deque[T]) Delete(i, n int) {
-	self.Items = slices.Delete(self.Items, i, i+n);
+	self.Items = slices.Delete(self.Items, i, i+n)
 }
 
-func (self *Deque[T]) Insert(i int, items...T) {
-	self.Items = slices.Insert(self.Items, i, items...);
+func (self *Deque[T]) Insert(i int, items ...T) {
+	self.Items = slices.Insert(self.Items, i, items...)
 }
 
 func (self *Deque[T]) Len() int {

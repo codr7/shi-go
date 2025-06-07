@@ -3,9 +3,9 @@ package readers
 import (
 	"bufio"
 	//"fmt"
-	"shi/src/shi"
-	"shi/src/forms"
 	"io"
+	"shi/src/forms"
+	"shi/src/shi"
 )
 
 type TScope struct {
@@ -15,7 +15,7 @@ var Scope TScope
 
 func (_ TScope) Read(vm *shi.VM, in *bufio.Reader, out *shi.Forms, sloc *shi.Sloc) (bool, error) {
 	formSloc := *sloc
-	
+
 	if c, _, err := in.ReadRune(); err != nil {
 		if err == io.EOF {
 			err = nil
@@ -30,17 +30,17 @@ func (_ TScope) Read(vm *shi.VM, in *bufio.Reader, out *shi.Forms, sloc *shi.Slo
 	}
 
 	var buf shi.Forms
-	
+
 	for {
 		if _, err := Space.Read(vm, in, &buf, sloc); err != nil {
 			return false, err
 		}
-		
+
 		if c, _, err := in.ReadRune(); err != nil {
 			if err == io.EOF {
 				err = shi.NewReadError(*sloc, "Invalid syntax")
 			}
-			
+
 			return false, err
 		} else if c == ')' {
 			sloc.Step(c)

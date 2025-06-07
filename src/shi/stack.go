@@ -15,4 +15,3 @@ func (self *Stack[T]) Pop() T {
 func (self *Stack[T]) Push(it T) {
 	self.PushBack(it)
 }
-

@@ -2,9 +2,9 @@ package libraries
 
 import (
 	"shi/src/forms"
+	"shi/src/libraries/core"
 	"shi/src/operations"
 	"shi/src/shi"
-	"shi/src/libraries/core"
 )
 
 type TCore struct {
@@ -33,7 +33,7 @@ func (self *TCore) Init(name shi.Symbol, parentLibrary shi.Library) {
 		shi.MethodArgs{}.
 			Add(shi.S("x"), &core.Int).
 			Add(shi.S("y"), &core.Int),
-		func (sloc shi.Sloc, stack *shi.Values, vm *shi.VM) error {
+		func(sloc shi.Sloc, stack *shi.Values, vm *shi.VM) error {
 			y := shi.Cast(stack.Pop(), &core.Int)
 			x := stack.Peek()
 			x.Data = shi.Cast(*x, &core.Int) + y
@@ -44,7 +44,7 @@ func (self *TCore) Init(name shi.Symbol, parentLibrary shi.Library) {
 		shi.MethodArgs{}.
 			Add(shi.S("x"), &core.Int).
 			Add(shi.S("y"), &core.Int),
-		func (sloc shi.Sloc, stack *shi.Values, vm *shi.VM) error {
+		func(sloc shi.Sloc, stack *shi.Values, vm *shi.VM) error {
 			y := shi.Cast(stack.Pop(), &core.Int)
 			x := stack.Peek()
 			x.Data = shi.Cast(*x, &core.Int) - y
@@ -55,7 +55,7 @@ func (self *TCore) Init(name shi.Symbol, parentLibrary shi.Library) {
 		shi.MethodArgs{}.
 			Add(shi.S("x"), &core.Int).
 			Add(shi.S("y"), &core.Int),
-		func (sloc shi.Sloc, stack *shi.Values, vm *shi.VM) error {
+		func(sloc shi.Sloc, stack *shi.Values, vm *shi.VM) error {
 			y := shi.Cast(stack.Pop(), &core.Int)
 			x := stack.Peek()
 			x.Init(&core.Bool, shi.Cast(*x, &core.Int) < y)
@@ -64,14 +64,14 @@ func (self *TCore) Init(name shi.Symbol, parentLibrary shi.Library) {
 
 	BindMacro(self, shi.S("if"),
 		[]string{"cond", "branch"},
-		func (sloc shi.Sloc, in *shi.Forms, vm *shi.VM) error {
+		func(sloc shi.Sloc, in *shi.Forms, vm *shi.VM) error {
 			if err := in.PopFront().Emit(in, vm); err != nil {
 				return err
 			}
 
 			branchEnd := shi.NewLabel()
 			vm.Emit(operations.Branch(branchEnd))
-			
+
 			if err := in.PopFront().Emit(in, vm); err != nil {
 				return err
 			}
@@ -90,7 +90,7 @@ func (self *TCore) Init(name shi.Symbol, parentLibrary shi.Library) {
 			} else {
 				branchEnd.Pc = vm.EmitPc()
 			}
-			
+
 			return nil
 		})
 }

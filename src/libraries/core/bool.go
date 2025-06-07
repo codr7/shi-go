@@ -30,7 +30,7 @@ func (self *TBool) Dump(v shi.Value, out io.Writer, vm *shi.VM) error {
 		_, err := fmt.Fprint(out, "T")
 		return err
 	}
-	
+
 	_, err := fmt.Fprint(out, "F")
 	return err
 }
@@ -43,5 +43,3 @@ func (_ *TBool) Emit(value shi.Value, sloc shi.Sloc, in *shi.Forms, vm *shi.VM) 
 func (self *TBool) Write(v shi.Value, out io.Writer, vm *shi.VM) error {
 	return self.Dump(v, out, vm)
 }
-
-

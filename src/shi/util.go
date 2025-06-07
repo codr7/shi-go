@@ -14,14 +14,14 @@ func DumpStack(stack Values, out io.Writer, vm *VM) error {
 			if _, err := fmt.Fprint(out, " "); err != nil {
 				return err
 			}
-			
+
 		}
 
 		if err := v.Dump(out, vm); err != nil {
 			return err
 		}
 	}
-	
+
 	if _, err := fmt.Fprint(out, "]"); err != nil {
 		return err
 	}

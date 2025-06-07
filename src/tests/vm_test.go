@@ -3,10 +3,10 @@ package tests
 import (
 	"testing"
 
-	"shi/src/shi"
 	"shi/src/libraries/core"
 	"shi/src/operations"
 	"shi/src/readers"
+	"shi/src/shi"
 )
 
 func newVM() *shi.VM {

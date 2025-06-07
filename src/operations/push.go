@@ -5,7 +5,7 @@ import (
 )
 
 type TPush struct {
-	value  shi.Value
+	value shi.Value
 }
 
 func Push(value shi.Value) *TPush {
@@ -13,8 +13,8 @@ func Push(value shi.Value) *TPush {
 }
 
 func (self *TPush) Compile(vm *shi.VM, pc shi.PC) shi.Eval {
-	return func (stack *shi.Values) (shi.PC, error) {
+	return func(stack *shi.Values) (shi.PC, error) {
 		stack.Push(self.value.Dup(vm))
-		return pc+1, nil
+		return pc + 1, nil
 	}
 }

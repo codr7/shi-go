@@ -24,17 +24,17 @@ type DataType[T any] interface {
 }
 
 type BaseType[T any] struct {
-	name Symbol
+	name    Symbol
 	parents map[Type]bool
 }
 
-func (self *BaseType[T]) Init(name Symbol, parents...Type) {
+func (self *BaseType[T]) Init(name Symbol, parents ...Type) {
 	self.name = name
 	self.parents = make(map[Type]bool)
-	
+
 	for _, pt := range parents {
 		self.parents[pt] = true
-		
+
 		for ppt := range pt.Parents() {
 			self.parents[ppt] = true
 		}

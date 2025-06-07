@@ -44,6 +44,6 @@ func Cast[T any](v Value, t DataType[T]) T {
 	if v.Type != t {
 		panic(fmt.Sprintf("Expected %v: %v", v.Type, t))
 	}
-	
+
 	return v.Data.(T)
 }

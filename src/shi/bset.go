@@ -8,13 +8,13 @@ type BSetCompare[K cmp.Ordered] = func(x, y K) int
 type BSetKey[K cmp.Ordered, V any] = func(V) K
 
 func BSetDefaultKey[K cmp.Ordered, V any](v V) K {
-	return any(v).(K)	
+	return any(v).(K)
 }
 
 type BSet[K cmp.Ordered, V any] struct {
 	Deque[V]
 	compare BSetCompare[K]
-	key BSetKey[K, V]
+	key     BSetKey[K, V]
 }
 
 func (self *BSet[K, V]) Init(c BSetCompare[K], k BSetKey[K, V]) {
@@ -54,14 +54,14 @@ func (self *BSet[K, V]) IndexOf(k K) (int, *V) {
 	for min < max {
 		i := (min + max) / 2
 		it := self.Items[i]
-		
+
 		switch self.compare(k, self.key(it)) {
 		case -1:
 			max = i
 		case 0:
 			return i, &it
 		case 1:
-			min = i+1
+			min = i + 1
 		}
 	}
 

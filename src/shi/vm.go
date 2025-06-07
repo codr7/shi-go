@@ -12,11 +12,11 @@ type VM struct {
 	Registers Stack[*Value]
 
 	currentLibrary Library
-	userLibrary BaseLibrary
+	userLibrary    BaseLibrary
 
-	reader Reader
+	reader     Reader
 	operations Stack[Operation]
-	code Stack[Eval]
+	code       Stack[Eval]
 }
 
 func (self *VM) Init(reader Reader) *VM {
@@ -63,11 +63,9 @@ func (self *VM) Eval(from, to PC, stack *Values) error {
 		self.Compile(self.code.Len())
 	}
 
-	var err error;
-	
-	for pc := from;
-	err == nil && pc <= to;
-	pc, err = self.code.Items[pc](stack) {
+	var err error
+
+	for pc := from; err == nil && pc <= to; pc, err = self.code.Items[pc](stack) {
 		//Do nothing
 	}
 
@@ -83,7 +81,7 @@ func (self *VM) ReadAll(in *bufio.Reader, out *Forms, sloc *Sloc) error {
 		}
 
 		if !ok {
-			break;
+			break
 		}
 	}
 
@@ -95,10 +93,10 @@ func (self *VM) WithLibrary(lib Library, body func() error) error {
 
 	if lib == nil {
 		lib = new(BaseLibrary)
-		lib.Init(self.currentLibrary.Name(), self.currentLibrary) 
+		lib.Init(self.currentLibrary.Name(), self.currentLibrary)
 	}
-	
+
 	self.currentLibrary = lib
-	defer func () { self.currentLibrary = prev }()
+	defer func() { self.currentLibrary = prev }()
 	return body()
 }

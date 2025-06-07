@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"shi/src/shi"
 	"shi/src/forms"
+	"shi/src/shi"
 )
 
 func Repl(vm *shi.VM) {
@@ -16,11 +16,11 @@ func Repl(vm *shi.VM) {
 	var code bytes.Buffer
 	sloc := shi.NewSloc("repl")
 	var stack shi.Values
-	
+
 	for {
 		fmt.Fprintf(out, "%2v ", sloc.Line())
 		out.Flush()
-		
+
 		if !in.Scan() {
 			if err := in.Err(); err != nil {
 				log.Fatal(err)
@@ -30,23 +30,22 @@ func Repl(vm *shi.VM) {
 		}
 
 		line := in.Text()
-		
+
 		if line == "" {
 			pc := vm.EmitPc()
 			var fs shi.Forms
-			
-			if err := vm.ReadAll(bufio.NewReader(&code), &fs, sloc);
-			err != nil {
+
+			if err := vm.ReadAll(bufio.NewReader(&code), &fs, sloc); err != nil {
 				fmt.Fprintln(out, err)
 				code.Reset()
 				goto NEXT
 			}
-			
+
 			if err := forms.EmitAll(&fs, vm); err != nil {
 				fmt.Fprintln(out, err)
 				goto NEXT
 			}
-			
+
 			if err := vm.Eval(pc, -1, &stack); err != nil {
 				fmt.Fprintln(out, err)
 			}

@@ -11,9 +11,9 @@ func Put(target shi.Register) *TPut {
 }
 
 func (self *TPut) Compile(vm *shi.VM, pc shi.PC) shi.Eval {
-	return func (stack *shi.Values) (shi.PC, error) {
+	return func(stack *shi.Values) (shi.PC, error) {
 		v := stack.Pop()
 		vm.Registers.Items[self.target] = &v
-		return pc+1, nil
+		return pc + 1, nil
 	}
 }

@@ -2,8 +2,8 @@ package readers
 
 import (
 	"bufio"
-	"shi/src/shi"
 	"io"
+	"shi/src/shi"
 )
 
 type TForm struct {
@@ -27,7 +27,7 @@ func (self TForm) Read(vm *shi.VM, in *bufio.Reader, out *shi.Forms, sloc *shi.S
 	}
 
 	in.UnreadRune()
-	
+
 	switch c {
 	case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9':
 		return Int.Read(vm, in, out, sloc)

@@ -2,6 +2,6 @@ package shi
 
 type Call struct {
 	returnPc PC
-	sloc Sloc
-	target *ScriptMethod
+	sloc     Sloc
+	target   *ScriptMethod
 }

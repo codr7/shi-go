@@ -26,8 +26,8 @@ func (self *Sloc) Line() int {
 
 func (self *Sloc) Step(c rune) {
 	if c == '\n' {
-		self.line++;
-		self.column = 0;
+		self.line++
+		self.column = 0
 	} else {
 		self.column++
 	}

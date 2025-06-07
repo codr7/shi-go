@@ -3,9 +3,9 @@ package readers
 import (
 	"bufio"
 	//"fmt"
-	"shi/src/shi"
-	"shi/src/forms"
 	"io"
+	"shi/src/forms"
+	"shi/src/shi"
 	"strings"
 	"unicode"
 )
@@ -21,7 +21,7 @@ func (_ TId) Read(vm *shi.VM, in *bufio.Reader, out *shi.Forms, sloc *shi.Sloc) 
 
 	for {
 		c, _, err := in.ReadRune()
-		
+
 		if err != nil {
 			if err == io.EOF {
 				err = nil
@@ -43,7 +43,7 @@ func (_ TId) Read(vm *shi.VM, in *bufio.Reader, out *shi.Forms, sloc *shi.Sloc) 
 	if buf.Len() == 0 {
 		return false, nil
 	}
-	
+
 	out.PushBack(forms.Id(formSloc, shi.S(buf.String())))
 	return true, nil
 }

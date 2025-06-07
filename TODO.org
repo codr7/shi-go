@@ -1,3 +1,5 @@
-* rename PC vars/methods
-* add ScriptMethod
+* fix compiler error
 * add method macro
+* rename PC vars/methods
+
+go fmt shi/src/...

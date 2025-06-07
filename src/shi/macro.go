@@ -24,7 +24,7 @@ func (self *BaseMacro) Name() Symbol {
 	return self.name
 }
 
-type HostMacroBody = func (sloc Sloc, in *Forms, vm *VM) error
+type HostMacroBody = func(sloc Sloc, in *Forms, vm *VM) error
 
 type HostMacro struct {
 	BaseMacro
@@ -40,6 +40,6 @@ func (self *HostMacro) Call(sloc Sloc, in *Forms, vm *VM) error {
 	if in.Len() < len(self.args) {
 		return NewEmitError(sloc, "Not enough args")
 	}
-	
+
 	return self.body(sloc, in, vm)
 }

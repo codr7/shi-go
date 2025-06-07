@@ -20,7 +20,7 @@ func (_ TInt) Read(vm *shi.VM, in *bufio.Reader, out *shi.Forms, sloc *shi.Sloc)
 
 	for {
 		c, _, err := in.ReadRune()
-		
+
 		if err != nil {
 			if err == io.EOF {
 				err = nil
@@ -34,7 +34,7 @@ func (_ TInt) Read(vm *shi.VM, in *bufio.Reader, out *shi.Forms, sloc *shi.Sloc)
 			break
 		}
 
-		v = v * 10 + int(c) - int('0')
+		v = v*10 + int(c) - int('0')
 		sloc.Step(c)
 	}
 

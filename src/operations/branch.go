@@ -13,9 +13,9 @@ func Branch(end *shi.Label) *TBranch {
 }
 
 func (self *TBranch) Compile(vm *shi.VM, pc shi.PC) shi.Eval {
-	return func (stack *shi.Values) (shi.PC, error) {
+	return func(stack *shi.Values) (shi.PC, error) {
 		if stack.Pop().AsBool() {
-			return pc+1, nil
+			return pc + 1, nil
 		}
 
 		return self.end.Pc, nil

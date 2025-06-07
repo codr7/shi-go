@@ -35,7 +35,7 @@ func (self *BaseMethod) Name() Symbol {
 	return self.name
 }
 
-type HostMethodBody = func (sloc Sloc, stack *Values, vm *VM) error
+type HostMethodBody = func(sloc Sloc, stack *Values, vm *VM) error
 
 type HostMethod struct {
 	BaseMethod
@@ -58,7 +58,7 @@ type ScriptMethod struct {
 
 func (self *ScriptMethod) Init(name Symbol, args []MethodArg, startPc PC) {
 	self.BaseMethod.Init(name, args)
-	self.startPc = startPc 
+	self.startPc = startPc
 }
 
 func (self *ScriptMethod) Call(sloc Sloc, pc PC, stack *Values, vm *VM) (PC, error) {
