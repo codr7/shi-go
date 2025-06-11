@@ -1,5 +1,5 @@
 * fix compiler error
+* rename scope to list
 * add method macro
-* rename PC vars/methods
 
 go fmt shi/src/...
